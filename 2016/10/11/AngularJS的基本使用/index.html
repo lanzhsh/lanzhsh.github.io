@@ -1,0 +1,499 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>AngularJS的基本使用 | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="重要特性MVC设计思想,model,controller和view模块化,依赖注入双向数据绑定 版本1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X 指令A.概念AngularJS自定义的HTML属性标签 B.为什么会有html在构建应用存在很多不足 C.具体分类ng-app:指定作用范围ng-show,hide:是否显示,隐藏,元素本身存在ng-if:是否创建ng-src,href">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS的基本使用">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/AngularJS的基本使用/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="重要特性MVC设计思想,model,controller和view模块化,依赖注入双向数据绑定 版本1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X 指令A.概念AngularJS自定义的HTML属性标签 B.为什么会有html在构建应用存在很多不足 C.具体分类ng-app:指定作用范围ng-show,hide:是否显示,隐藏,元素本身存在ng-if:是否创建ng-src,href">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-01T14:42:56.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJS的基本使用">
+<meta name="twitter:description" content="重要特性MVC设计思想,model,controller和view模块化,依赖注入双向数据绑定 版本1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X 指令A.概念AngularJS自定义的HTML属性标签 B.为什么会有html在构建应用存在很多不足 C.具体分类ng-app:指定作用范围ng-show,hide:是否显示,隐藏,元素本身存在ng-if:是否创建ng-src,href">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/11/AngularJS的基本使用/" title="AngularJS的基本使用" itemprop="url">AngularJS的基本使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-11T13:13:47.000Z" itemprop="datePublished"> 发表于 2016-10-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="重要特性"><a href="#重要特性" class="headerlink" title="重要特性"></a>重要特性</h3><p>MVC设计思想,model,controller和view<br>模块化,依赖注入<br>双向数据绑定</p>
+<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X</p>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><h5 id="A-概念"><a href="#A-概念" class="headerlink" title="A.概念"></a>A.概念</h5><p>AngularJS自定义的HTML属性标签</p>
+<h5 id="B-为什么会有"><a href="#B-为什么会有" class="headerlink" title="B.为什么会有"></a>B.为什么会有</h5><p>html在构建应用存在很多不足</p>
+<h5 id="C-具体分类"><a href="#C-具体分类" class="headerlink" title="C.具体分类"></a>C.具体分类</h5><p>ng-app:指定作用范围<br>ng-show,hide:是否显示,隐藏,元素本身存在<br>ng-if:是否创建<br>ng-src,href:引入,引用<br>ng-class:添加类<br>ng-include=’path’,导入外部文件<br>ng-repeat=’item in arr’或ng-repeat=’(key,value) in arr’<br>ng-switch=’type’和ng-switch-when=’’配合使用</p>
+<h5 id="D-自定义指令"><a href="#D-自定义指令" class="headerlink" title="D.自定义指令"></a>D.自定义指令</h5><p>由于ng提供的指令不足以满足需求,使用directive方法</p>
+<pre><code>app.directive(&quot;hmTag&quot;, function() {
+return {
+    restrict: &quot;A&quot;,
+    //是否替换原标签
+    replace: true,
+    //模板
+    template: &quot;&lt;h1&gt;我是1个粉刷匠&lt;/h1&gt;&quot;
+    //模板路径
+    templateUrl:&apos;./inlcude演示/top.html&apos;
+    //link可以对已经指令操作
+    link: function(scope, element, attrs) {
+        //
+        element.on(&quot;click&quot;, function() {
+            console.log(&quot;我被点了吗?&quot;);
+        });
+    }
+}
+});
+</code></pre><hr>
+<h3 id="单向和双向数据绑定"><a href="#单向和双向数据绑定" class="headerlink" title="单向和双向数据绑定"></a>单向和双向数据绑定</h3><h5 id="A-区别"><a href="#A-区别" class="headerlink" title="A.区别"></a>A.区别</h5><p>单向数据绑定数据只能从控制器到视图,不可逆<br>双向是可逆的<br>绑定是ng-bind,双花括号是简写,</p>
+<h5 id="B-单向数据绑定"><a href="#B-单向数据绑定" class="headerlink" title="B.单向数据绑定"></a>B.单向数据绑定</h5><pre><code>&lt;body ng-app=&quot;hmApp&quot;&gt;
+&lt;div ng-controller=&quot;demoCtrl&quot;&gt;
+    &lt;p ng-cloak&gt;{{user.name}}&lt;/p&gt;
+    &lt;p ng-cloak&gt;{{user.info}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var app = angular.module(&quot;hmApp&quot;, []);
+    app.controller(&quot;demoCtrl&quot;, [&quot;$scope&quot;, 
+        function($scope) {
+        $scope.user = {
+            name: &quot;杰克.王&quot;,
+            info: &quot;跟着我&quot;
+        };
+    }]);
+&lt;/script&gt;
+&lt;/body&gt;
+</code></pre><h5 id="C-双向实现方法"><a href="#C-双向实现方法" class="headerlink" title="C.双向实现方法"></a>C.双向实现方法</h5><p>只作用于表单元素,设置ng-model指令</p>
+<h5 id="D-双向数据绑定原理"><a href="#D-双向数据绑定原理" class="headerlink" title="D.双向数据绑定原理"></a>D.双向数据绑定原理</h5><p>双向绑定的元素有一个watcher<br>事件触发(包括表单元素内容变化,ajax请求,点击按钮执行函数)调用digest脏数据检查<br>digest会检测所有的rootscope下所有被watcher元素</p>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><p>原生的事件是全局变量,会造成全局变量污染</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>MVC的视图之间是可以相互嵌套的，存在父子关系，在子视图可以访问父视图的值<br>没有嵌套关系的作用域是相互独立的</p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><h5 id="A-作用"><a href="#A-作用" class="headerlink" title="A.作用"></a>A.作用</h5><p>在视图显示数据的时候，将要显示的数据进行一个处理之后再显示<br>在controller里面过滤,视图显示</p>
+<h5 id="B-分类"><a href="#B-分类" class="headerlink" title="B.分类"></a>B.分类</h5><pre><code>日期data:{{now|date:"yyyy-MM-dd HH:mm:ss"}}
+货币currency:{{price|currency:"￥":1}}
+转换小写lowercase:{{msg|lowercase}}
+过滤器limitTo:{{data|limitTo:2}}
+排序orderBy:{{stus|orderBy:'age':true}}
+
+&lt;span&gt;时间{{now|date:"yyyy-MM-dd HH:mm:ss"}}
+&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;价格是{{price|currency:"￥":1}}
+&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{msg|lowercase}}&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{msg1|uppercase}}&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{data|limitTo:2}}&lt;/span&gt;&lt;br&gt;
+
+app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,function
+($scope){
+    $scope.now = new Date();
+    $scope.price = 113.45;
+    $scope.msg = &quot;THIS IS ITCAST!&quot;;
+    $scope.msg1 = &quot;hello,everyone!&quot;;
+    $scope.data = [10,120,30,240,150,60,
+    70,380,390,1100];
+}]);
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/10/11/AngularJS的基本使用/" data-title="AngularJS的基本使用 | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/07/24/bootstrap的基本使用/"  title="bootstrap的基本使用">
+ <strong>下一篇：</strong><br/> 
+ <span>bootstrap的基本使用
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#重要特性"><span class="toc-number">1.</span> <span class="toc-text">重要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令"><span class="toc-number">3.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-概念"><span class="toc-number">3.0.1.</span> <span class="toc-text">A.概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-为什么会有"><span class="toc-number">3.0.2.</span> <span class="toc-text">B.为什么会有</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-具体分类"><span class="toc-number">3.0.3.</span> <span class="toc-text">C.具体分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-自定义指令"><span class="toc-number">3.0.4.</span> <span class="toc-text">D.自定义指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单向和双向数据绑定"><span class="toc-number">4.</span> <span class="toc-text">单向和双向数据绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-区别"><span class="toc-number">4.0.1.</span> <span class="toc-text">A.区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-单向数据绑定"><span class="toc-number">4.0.2.</span> <span class="toc-text">B.单向数据绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-双向实现方法"><span class="toc-number">4.0.3.</span> <span class="toc-text">C.双向实现方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-双向数据绑定原理"><span class="toc-number">4.0.4.</span> <span class="toc-text">D.双向数据绑定原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理"><span class="toc-number">5.</span> <span class="toc-text">事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域"><span class="toc-number">6.</span> <span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过滤器"><span class="toc-number">7.</span> <span class="toc-text">过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-作用"><span class="toc-number">7.0.1.</span> <span class="toc-text">A.作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-分类"><span class="toc-number">7.0.2.</span> <span class="toc-text">B.分类</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
