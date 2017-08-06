@@ -1,0 +1,479 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>NodeJS之ExpressJS框架 | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="概念nodeJS的一个框架,扩展了一些功能 创建一个WEB服务器var express = require(&amp;apos;express&amp;apos;);  // 创建一个 app 出来 var app = express();  // 捕获 get 类型的 / 请求 app.get(&amp;apos;/&amp;apos;, function (req, res) { // 支持原生的 end 方法 res.en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS之ExpressJS框架">
+<meta property="og:url" content="http://yoursite.com/2017/05/05/NodeJS之ExpressJS框架/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="概念nodeJS的一个框架,扩展了一些功能 创建一个WEB服务器var express = require(&amp;apos;express&amp;apos;);  // 创建一个 app 出来 var app = express();  // 捕获 get 类型的 / 请求 app.get(&amp;apos;/&amp;apos;, function (req, res) { // 支持原生的 end 方法 res.en">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-02T14:05:40.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJS之ExpressJS框架">
+<meta name="twitter:description" content="概念nodeJS的一个框架,扩展了一些功能 创建一个WEB服务器var express = require(&amp;apos;express&amp;apos;);  // 创建一个 app 出来 var app = express();  // 捕获 get 类型的 / 请求 app.get(&amp;apos;/&amp;apos;, function (req, res) { // 支持原生的 end 方法 res.en">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/05/NodeJS之ExpressJS框架/" title="NodeJS之ExpressJS框架" itemprop="url">NodeJS之ExpressJS框架</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-05T13:22:51.000Z" itemprop="datePublished"> 发表于 2017-05-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>nodeJS的一个框架,扩展了一些功能</p>
+<h3 id="创建一个WEB服务器"><a href="#创建一个WEB服务器" class="headerlink" title="创建一个WEB服务器"></a>创建一个WEB服务器</h3><pre><code>var express = require(&apos;express&apos;);
+
+// 创建一个 app 出来
+var app = express();
+
+// 捕获 get 类型的 / 请求
+app.get(&apos;/&apos;, function (req, res) {
+// 支持原生的 end 方法
+res.end(&apos;OK&apos;);
+});
+// 捕获 get 类型的 /a 请求
+app.get(&apos;/a&apos;, function (req, res) {
+// 通过 express 封装的 send 方法，返回内容，会
+自动添加响应头，更加方便便捷
+res.send(&apos;&lt;h1&gt;你好啊&lt;/h1&gt;&apos;);
+ });
+
+// 启动 app 监听程序
+app.listen(3000, function () {
+console.log(&apos;App running at http://
+127.0.0.1:3000&apos;);
+});
+</code></pre><h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><h5 id="A-作用"><a href="#A-作用" class="headerlink" title="A.作用"></a>A.作用</h5><p>是一个函数，它可以访问请求对象(req), 响应对象(res)</p>
+<p>经过中间件的处理之后，express就向 req 和 res ,对象身上，挂在了一些好用的方法和属性 req.query res.send() res.json()</p>
+<h5 id="B-分类"><a href="#B-分类" class="headerlink" title="B.分类"></a>B.分类</h5><p>1.应用级别:绑定到app对象上的,如app.use()<br>2.路由:router.use()<br>3.错误处理:app.use((err,req,res,next=&gt;{})),有四个参数<br>4.内置中间件:express.static(root,[options])<br>5.第三方:通过npm下载的,如cookie-parser,body-parse(可以处理post提交过来的数据)</p>
+<h3 id="body-parse使用步骤"><a href="#body-parse使用步骤" class="headerlink" title="body-parse使用步骤"></a>body-parse使用步骤</h3><p>主要处理post提交过来的数据</p>
+<p>方法:1. 使用 npm 安装 2. 导入 这个第三方中间件 模块 3. 使用 app.use()注册刚才导入的中间件，到 app身上</p>
+<h3 id="使用路由方法"><a href="#使用路由方法" class="headerlink" title="使用路由方法"></a>使用路由方法</h3><p>1.创建自己的router.js文件</p>
+<p>2.导入express模块<br>Var express=require(‘express’);<br>Var app=express();</p>
+<p>3.另外一个文件创建路由<br>Var router=express.Router()</p>
+<p>4.注册路由模块,使用app.use<br>App.use(router);</p>
+<h3 id="ejs模板"><a href="#ejs模板" class="headerlink" title="ejs模板"></a>ejs模板</h3><h5 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h5><p>1.是express中的默认模板引擎,使用</p>
+<p>2.art-template是nodeJS创建的web服务器中可以直接使用</p>
+<h5 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h5><p>1.安装<br>2.注册app.set(‘view engine’, ‘ejs’);<br>3.修改默认的模板文件存放路径app.set(‘views’, __dirname + ‘/views’);<br>4.使用ejs将模板渲染出来，同时将渲染的结果发送给客户端</p>
+<h5 id="art-tempalte模板"><a href="#art-tempalte模板" class="headerlink" title="art-tempalte模板"></a>art-tempalte模板</h5><ol>
+<li><p>先安装相关的包：<br>npm install –save art-template<br>npm install –save express-art-template</p>
+</li>
+<li><p>使用 app.engine自定义一个模板引擎<br>app.engine(‘art’, require(‘express-art-template’));</p>
+</li>
+<li><p>使用app.set把自定义的模板引擎，设置为express 默认的模板引擎：<br>app.set(‘view engine’, ‘art’);</p>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/05/05/NodeJS之ExpressJS框架/" data-title="NodeJS之ExpressJS框架 | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/05/22/mySQL的CRUD/" title="mySQL的CRUD">
+  <strong>上一篇：</strong><br/>
+  <span>
+  mySQL的CRUD</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/04/05/nodeJS的异步I-O和事件驱动/"  title="nodeJS的异步I/O和事件驱动">
+ <strong>下一篇：</strong><br/> 
+ <span>nodeJS的异步I/O和事件驱动
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个WEB服务器"><span class="toc-number">2.</span> <span class="toc-text">创建一个WEB服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中间件"><span class="toc-number">3.</span> <span class="toc-text">中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-作用"><span class="toc-number">3.0.1.</span> <span class="toc-text">A.作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-分类"><span class="toc-number">3.0.2.</span> <span class="toc-text">B.分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#body-parse使用步骤"><span class="toc-number">4.</span> <span class="toc-text">body-parse使用步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用路由方法"><span class="toc-number">5.</span> <span class="toc-text">使用路由方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ejs模板"><span class="toc-number">6.</span> <span class="toc-text">ejs模板</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念-1"><span class="toc-number">6.0.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用方法"><span class="toc-number">6.0.2.</span> <span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#art-tempalte模板"><span class="toc-number">6.0.3.</span> <span class="toc-text">art-tempalte模板</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

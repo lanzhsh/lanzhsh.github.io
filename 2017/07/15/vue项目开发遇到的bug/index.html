@@ -1,0 +1,450 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>vue项目开发遇到的经典bug | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="使用v-for产生的bug1.应用场景:通过vue实例的$http从后台请求数据,储存到data的返回值进而绑定到页面,数据有重复就会用到v-for指令 2.产生的问题:当我们遍历每一个item的时候,采用是就地复用的原则,下一个item会复用上一个item,这两个item会指向同一个内存空间,当改变模型,会导致几个地方一起改 3.解决方法:2.v1.x版本在里面加上track-by:’$inde">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue项目开发遇到的经典bug">
+<meta property="og:url" content="http://yoursite.com/2017/07/15/vue项目开发遇到的bug/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="使用v-for产生的bug1.应用场景:通过vue实例的$http从后台请求数据,储存到data的返回值进而绑定到页面,数据有重复就会用到v-for指令 2.产生的问题:当我们遍历每一个item的时候,采用是就地复用的原则,下一个item会复用上一个item,这两个item会指向同一个内存空间,当改变模型,会导致几个地方一起改 3.解决方法:2.v1.x版本在里面加上track-by:’$inde">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-06T11:10:23.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue项目开发遇到的经典bug">
+<meta name="twitter:description" content="使用v-for产生的bug1.应用场景:通过vue实例的$http从后台请求数据,储存到data的返回值进而绑定到页面,数据有重复就会用到v-for指令 2.产生的问题:当我们遍历每一个item的时候,采用是就地复用的原则,下一个item会复用上一个item,这两个item会指向同一个内存空间,当改变模型,会导致几个地方一起改 3.解决方法:2.v1.x版本在里面加上track-by:’$inde">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/15/vue项目开发遇到的bug/" title="vue项目开发遇到的经典bug" itemprop="url">vue项目开发遇到的经典bug</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-15T15:23:00.000Z" itemprop="datePublished"> 发表于 2017-07-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="使用v-for产生的bug"><a href="#使用v-for产生的bug" class="headerlink" title="使用v-for产生的bug"></a>使用v-for产生的bug</h3><p>1.应用场景:<br>通过vue实例的$http从后台请求数据,储存到data的返回值进而绑定到页面,数据有重复就会用到v-for指令</p>
+<p>2.产生的问题:<br>当我们遍历每一个item的时候,采用是就地复用的原则,下一个item会复用上一个item,这两个item会指向同一个内存空间,当改变模型,会导致几个地方一起改</p>
+<p>3.解决方法:<br>2.v1.x版本在里面加上track-by:’$index’<br>V2.x加上每一个id,<br>如果后台没有返回固定的id,可以用数组的下标代替</p>
+<h3 id="webpack打包使用指令报错"><a href="#webpack打包使用指令报错" class="headerlink" title="webpack打包使用指令报错"></a>webpack打包使用指令报错</h3><p>1.解决方法:<br>检查指令<br>干掉本地项目的node_modules<br>去目录C:\Users\Administrator\AppData\Roaming,删掉npm,cnpm-cache重启电脑,重新安装node</p>
+<h3 id="vue实例的this问题"><a href="#vue实例的this问题" class="headerlink" title="vue实例的this问题"></a>vue实例的this问题</h3><p>1.应用场景:<br>methods被混入到vue实例中,可以通过vue实例访问呢这些方法,this就是指向vue实例</p>
+<p>2.产生的问题:<br>在watch里面使用箭头函数无法用this获取方法,因为箭头函数绑定了父级作用域的上下文</p>
+<p>3.解决方法:<br>直接使用普通函数<br>特例:vue-Router里面封装了处理this的方法,可以直接使用.</p>
+<h3 id="route检测路由问题"><a href="#route检测路由问题" class="headerlink" title="$route检测路由问题"></a>$route检测路由问题</h3><p>1.应用场景:SPA页面开发,头部和底部需要根据不同的路由显示不同,如headTab的返回和footTab</p>
+<p>2.产生的问题:怎么检测路由的变化,页面单个刷新路由没变化但还是要实现效果</p>
+<p>3.解决方法:<br>A.在methods定义一个函数判断路由是否变化,在watch应用$route会有newValue和oldValue值,在函数调用方法<br>B.单页刷新不能触发$route,但是可以利用组件生命周期钩子的created方法</p>
+<h3 id="父子组件的通讯问题"><a href="#父子组件的通讯问题" class="headerlink" title="父子组件的通讯问题"></a>父子组件的通讯问题</h3><p>1.应用场景:<br>vue开发,有多个页面部分功能相同时</p>
+<p>2.解决方法:<br>A.创建子组件</p>
+<p>B.子组件设置props属性<br>  props:[‘commentId’]</p>
+<p>C.集成:<br>  1.在父组件导入子组件<br>  2.注册子组件<br>  components:{<br>  subcomment:subcomment<br>  }<br>  3.在父组件的template标签中直接使用submment标签,自定义一个commentId的属性传值</p>
+<p>D.子元素通过this.commentId获取值</p>
+<h3 id="组件生命周期钩子解决的问题"><a href="#组件生命周期钩子解决的问题" class="headerlink" title="组件生命周期钩子解决的问题"></a>组件生命周期钩子解决的问题</h3><p>1.created(组件创建后)发送网络请求;</p>
+<p>2.记录下一次浏览的记录,在destroy可以设置本次的scrollTop值,在下次mounted(挂载完成)可以拿出下一次值</p>
+<p>3.app埋点:就是记录用户在web模块停留的时间,created记录t1,退出beforeDestroy记录一个时间,destroy记录时间差发送到服务器</p>
+<p>4.$.ajaxSetup()为以后设置ajax请求设置默认值,beforeSend发送之前,complete完成</p>
+<h3 id="loader无法预处理非js文件问题"><a href="#loader无法预处理非js文件问题" class="headerlink" title="loader无法预处理非js文件问题"></a>loader无法预处理非js文件问题</h3><p>1.解决方法:</p>
+<p>css文件<br>安装css-loader和style-loader,在webpack.develop.config配置test: /.css$/,loader: ‘style-loader!css-loader’</p>
+<p>ttf和png文件<br>安装url-loader和file-loader</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/07/15/vue项目开发遇到的bug/" data-title="vue项目开发遇到的经典bug | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/05/22/mySQL的CRUD/"  title="mySQL的CRUD">
+ <strong>下一篇：</strong><br/> 
+ <span>mySQL的CRUD
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用v-for产生的bug"><span class="toc-number">1.</span> <span class="toc-text">使用v-for产生的bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack打包使用指令报错"><span class="toc-number">2.</span> <span class="toc-text">webpack打包使用指令报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue实例的this问题"><span class="toc-number">3.</span> <span class="toc-text">vue实例的this问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route检测路由问题"><span class="toc-number">4.</span> <span class="toc-text">$route检测路由问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#父子组件的通讯问题"><span class="toc-number">5.</span> <span class="toc-text">父子组件的通讯问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件生命周期钩子解决的问题"><span class="toc-number">6.</span> <span class="toc-text">组件生命周期钩子解决的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loader无法预处理非js文件问题"><span class="toc-number">7.</span> <span class="toc-text">loader无法预处理非js文件问题</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

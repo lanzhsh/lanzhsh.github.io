@@ -1,0 +1,464 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>ES6常用规范 | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="兼容性原因由于ES6.1是2016年6月发布的,所以在此之前的浏览器都不支持,但是可以利用babel插件将ES6转化为ES5语法 解决方案npm i babel-core导入核心的browser.js let和constlet:定义变量,没有预解析,有块级作用域,花括号可以分割作用域const:定义常量,没有预解析,有块级作用域 解构赋值数组和对象可以直接对应赋值 let [a,b,c]=[1,2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6常用规范">
+<meta property="og:url" content="http://yoursite.com/2016/11/15/ES6常用规范/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="兼容性原因由于ES6.1是2016年6月发布的,所以在此之前的浏览器都不支持,但是可以利用babel插件将ES6转化为ES5语法 解决方案npm i babel-core导入核心的browser.js let和constlet:定义变量,没有预解析,有块级作用域,花括号可以分割作用域const:定义常量,没有预解析,有块级作用域 解构赋值数组和对象可以直接对应赋值 let [a,b,c]=[1,2">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-05T06:39:06.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6常用规范">
+<meta name="twitter:description" content="兼容性原因由于ES6.1是2016年6月发布的,所以在此之前的浏览器都不支持,但是可以利用babel插件将ES6转化为ES5语法 解决方案npm i babel-core导入核心的browser.js let和constlet:定义变量,没有预解析,有块级作用域,花括号可以分割作用域const:定义常量,没有预解析,有块级作用域 解构赋值数组和对象可以直接对应赋值 let [a,b,c]=[1,2">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/15/ES6常用规范/" title="ES6常用规范" itemprop="url">ES6常用规范</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-15T15:30:28.000Z" itemprop="datePublished"> 发表于 2016-11-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><p>由于ES6.1是2016年6月发布的,所以在此之前的浏览器都不支持,但是可以利用babel插件将ES6转化为ES5语法</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>npm i babel-core<br>导入核心的browser.js</p>
+<h3 id="let和const"><a href="#let和const" class="headerlink" title="let和const"></a>let和const</h3><p>let:定义变量,没有预解析,有块级作用域,花括号可以分割作用域<br>const:定义常量,没有预解析,有块级作用域</p>
+<h3 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h3><p>数组和对象可以直接对应赋值</p>
+<p>let [a,b,c]=[1,2,3]<br>let [x, y, z] = new Set([‘a’, ‘b’, ‘c’]);</p>
+<h3 id="数值扩展"><a href="#数值扩展" class="headerlink" title="数值扩展"></a>数值扩展</h3><p>0b(B)二进制<br>0o(O)八进制</p>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>var f = () =&gt; 5;<br>// 等同于<br>var f = function () { return 5 };</p>
+<p>箭头函数返回的是一个对象,要用花括号<br>var sum = (num1, num2) =&gt; num1 + num2;<br>// 等同于<br>var sum = function(num1, num2) {<br>  return num1 + num2;<br>};</p>
+<h3 id="对象的扩展"><a href="#对象的扩展" class="headerlink" title="对象的扩展"></a>对象的扩展</h3><p>键值相同,值可以省略</p>
+<p>module.exports = { getItem, setItem, clear };<br>// 等同于<br>module.exports = {<br>  getItem: getItem,<br>  setItem: setItem,<br>  clear: clear<br>};</p>
+<h3 id="JS模块化"><a href="#JS模块化" class="headerlink" title="JS模块化"></a>JS模块化</h3><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>1.css的模块化@import,最好不要用因为相对于link来说,@import是先加载html在加载css,link是遇到先加载完成;</p>
+<p>2.js后端有commonJS,前端seaJS和requireJS</p>
+<h5 id="import输入"><a href="#import输入" class="headerlink" title="import输入"></a>import输入</h5><p>js引擎遇到import只会生成一个只读应用,脚本执行再去找值,原始值变加载值也变</p>
+<p>import { stat, exists, readFile } from ‘fs’;</p>
+<h5 id="export输出"><a href="#export输出" class="headerlink" title="export输出"></a>export输出</h5><p>是编译时输出接口,commonJS是运行时加载</p>
+<p>export function area(radius) {<br>  return Math.PI <em> radius </em> radius;<br>}</p>
+<h5 id="import和export用法结合"><a href="#import和export用法结合" class="headerlink" title="import和export用法结合"></a>import和export用法结合</h5><p>需要明确知道要加载和输入变量名和函数名</p>
+<h5 id="export-default默认输出"><a href="#export-default默认输出" class="headerlink" title="export default默认输出"></a>export default默认输出</h5><p>配合import解决模块文件输入输出</p>
+<pre><code>// export-default.js
+export default function () {
+  console.log(&apos;foo&apos;);
+}
+
+// import-default.js
+import customName from &apos;./export-default&apos;;
+customName(); // &apos;foo&apos;
+</code></pre><h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>1.ES6的模块采用严格模式</p>
+<p>变量必须声明再使用<br>函数参数不能有同名属性<br>不能用with<br>this不指向全局<br>eval执行字符串代码时,作用域独立</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/11/15/ES6常用规范/" data-title="ES6常用规范 | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/12/13/vue路由及对应组件的使用/" title="Vue-Router和Vue-Resource">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Vue-Router和Vue-Resource</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/10/跨域的原理-方法及应用/"  title="跨域的原理,方法及应用">
+ <strong>下一篇：</strong><br/> 
+ <span>跨域的原理,方法及应用
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#兼容性"><span class="toc-number">1.</span> <span class="toc-text">兼容性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#原因"><span class="toc-number">1.0.1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解决方案"><span class="toc-number">1.0.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#let和const"><span class="toc-number">2.</span> <span class="toc-text">let和const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解构赋值"><span class="toc-number">3.</span> <span class="toc-text">解构赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数值扩展"><span class="toc-number">4.</span> <span class="toc-text">数值扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数"><span class="toc-number">5.</span> <span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的扩展"><span class="toc-number">6.</span> <span class="toc-text">对象的扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS模块化"><span class="toc-number">7.</span> <span class="toc-text">JS模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#背景"><span class="toc-number">7.0.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#import输入"><span class="toc-number">7.0.2.</span> <span class="toc-text">import输入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#export输出"><span class="toc-number">7.0.3.</span> <span class="toc-text">export输出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#import和export用法结合"><span class="toc-number">7.0.4.</span> <span class="toc-text">import和export用法结合</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#export-default默认输出"><span class="toc-number">7.0.5.</span> <span class="toc-text">export default默认输出</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#严格模式"><span class="toc-number">8.</span> <span class="toc-text">严格模式</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

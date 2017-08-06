@@ -1,0 +1,453 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>构建神器webpack与gulp | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="webpack版本1.x和2.x,1.x使用loader预处理一些文件时导入时可以省略,2.x里面不可以省略 打包单文件和多文件单文件:直接打包多文件:找到入口文件,然后找到依赖文件命令:webpack entry.js bundle.js 参数–progress:查看打包进度-p 压缩bundle.js,需要借助babel–watch:监听源代码的更改–config:,如果webpack的配置文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建神器webpack与gulp">
+<meta property="og:url" content="http://yoursite.com/2017/01/13/构建神器webpack与gulp/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="webpack版本1.x和2.x,1.x使用loader预处理一些文件时导入时可以省略,2.x里面不可以省略 打包单文件和多文件单文件:直接打包多文件:找到入口文件,然后找到依赖文件命令:webpack entry.js bundle.js 参数–progress:查看打包进度-p 压缩bundle.js,需要借助babel–watch:监听源代码的更改–config:,如果webpack的配置文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-04T15:22:21.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建神器webpack与gulp">
+<meta name="twitter:description" content="webpack版本1.x和2.x,1.x使用loader预处理一些文件时导入时可以省略,2.x里面不可以省略 打包单文件和多文件单文件:直接打包多文件:找到入口文件,然后找到依赖文件命令:webpack entry.js bundle.js 参数–progress:查看打包进度-p 压缩bundle.js,需要借助babel–watch:监听源代码的更改–config:,如果webpack的配置文">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/01/13/构建神器webpack与gulp/" title="构建神器webpack与gulp" itemprop="url">构建神器webpack与gulp</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2017-01-13T14:09:49.000Z" itemprop="datePublished"> 发表于 2017-01-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h3><h5 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h5><p>1.x和2.x,1.x使用loader预处理一些文件时导入时可以省略,2.x里面不可以省略</p>
+<h5 id="打包单文件和多文件"><a href="#打包单文件和多文件" class="headerlink" title="打包单文件和多文件"></a>打包单文件和多文件</h5><p>单文件:直接打包<br>多文件:找到入口文件,然后找到依赖文件<br>命令:webpack entry.js bundle.js</p>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><p>–progress:查看打包进度<br>-p 压缩bundle.js,需要借助babel<br>–watch:监听源代码的更改<br>–config:,如果webpack的配置文件不叫webpack.config.js,打包是要使用–config指定</p>
+<h5 id="打包非js文件"><a href="#打包非js文件" class="headerlink" title="打包非js文件"></a>打包非js文件</h5><p>需要用到loader模块<br>常用的loader模块:<br>style-loader将解析好的css插入header的<style>中;<br>babel-loader,url-loader(路径),file-loader(文件预处理)</p>
+<h3 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h3><h5 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h5><p>–open 打开默认浏览器<br>–port 6088<br>–hot 实现热重载,更新数据页面不会刷新</p>
+<h5 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h5><p>webpack-dev-server –progress –config webpack.develop.config.js –port6008 –open –hot</p>
+<p>###两者的异同点</p>
+<h5 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h5><p>都是运行在终端,都可以用来打包指令一样</p>
+<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><p>webpack:用在成产阶段<br>web-dev-server:开发阶段</p>
+<h3 id="html-webpack-plugin"><a href="#html-webpack-plugin" class="headerlink" title="html-webpack-plugin"></a>html-webpack-plugin</h3><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p>1.开发阶段:可以以一个模板文件(template.html)为参照,在内存中指定一个index.html文件,     不会在实际文件中看到<br>2.也就相当与每次刷新不用重新打包;</p>
+<h3 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h3><h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>利用传输流,Transform Streams是NodeJS Stream的一种,是可读可写的</p>
+<h5 id="几个方法"><a href="#几个方法" class="headerlink" title="几个方法"></a>几个方法</h5><p>task创建任务,<br>src读,<br>dest写,<br>run运行,<br>watch监控</p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><p>所有的代码写到gulpfile.js文件里面</p>
+<pre><code>gulp.task(&apos;copy&apos;, function() {
+gulp.src(&apos;src/js/sm_view.js&apos;)
+    .pipe(gulp.dest(&apos;dist/js/&apos;));
+});
+</code></pre></style></p>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/01/13/构建神器webpack与gulp/" data-title="构建神器webpack与gulp | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/02/nodeJS基本使用/" title="nodeJS基本使用">
+  <strong>上一篇：</strong><br/>
+  <span>
+  nodeJS基本使用</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/12/23/vue项目搭建/"  title="vue项目搭建">
+ <strong>下一篇：</strong><br/> 
+ <span>vue项目搭建
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack"><span class="toc-number">1.</span> <span class="toc-text">webpack</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#版本"><span class="toc-number">1.0.1.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打包单文件和多文件"><span class="toc-number">1.0.2.</span> <span class="toc-text">打包单文件和多文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参数"><span class="toc-number">1.0.3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打包非js文件"><span class="toc-number">1.0.4.</span> <span class="toc-text">打包非js文件</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

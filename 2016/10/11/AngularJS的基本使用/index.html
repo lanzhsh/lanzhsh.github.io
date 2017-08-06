@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="兰志盛的博客">
 <meta property="og:description" content="重要特性MVC设计思想,model,controller和view模块化,依赖注入双向数据绑定 版本1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X 指令A.概念AngularJS自定义的HTML属性标签 B.为什么会有html在构建应用存在很多不足 C.具体分类ng-app:指定作用范围ng-show,hide:是否显示,隐藏,元素本身存在ng-if:是否创建ng-src,href">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-01T14:42:56.579Z">
+<meta property="og:updated_time" content="2017-08-02T08:13:59.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AngularJS的基本使用">
 <meta name="twitter:description" content="重要特性MVC设计思想,model,controller和view模块化,依赖注入双向数据绑定 版本1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X 指令A.概念AngularJS自定义的HTML属性标签 B.为什么会有html在构建应用存在很多不足 C.具体分类ng-app:指定作用范围ng-show,hide:是否显示,隐藏,元素本身存在ng-if:是否创建ng-src,href">
@@ -179,7 +179,66 @@ app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,function
     $scope.data = [10,120,30,240,150,60,
     70,380,390,1100];
 }]);
-</code></pre>  
+</code></pre><h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><h5 id="A-概念-1"><a href="#A-概念-1" class="headerlink" title="A.概念"></a>A.概念</h5><p>在ng中提供某一项功能</p>
+<h5 id="B-服务的使用"><a href="#B-服务的使用" class="headerlink" title="B.服务的使用"></a>B.服务的使用</h5><p>先在控制器参数里面依赖<br>然后在回调函数里面使用</p>
+<h5 id="C-分类"><a href="#C-分类" class="headerlink" title="C.分类"></a>C.分类</h5><p>$scope是负责存贮数据模型<br>$log在控制台输出信息<br>$timeout/$interval定时服务</p>
+<p>$filter过滤器服务,与filter过滤器的区别:filter过滤器用在视图中,在显示的数据模型数据过滤再显示,$filter是直接在控制器显示,直接改变数据模型</p>
+<p>$http请求ajax,$http</p>
+<pre><code>app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,
+ &quot;$http&quot;, function($scope, $http) {
+$http({
+    url: &quot;./php/stus.php&quot;,
+    method: &quot;post&quot;
+}).then(function(response) {
+    console.log(response.data);
+}, function() {
+    console.log(&quot;请求失败!&quot;);
+})
+}]);
+</code></pre><h5 id="D-自定义服务"><a href="#D-自定义服务" class="headerlink" title="D.自定义服务"></a>D.自定义服务</h5><p>方法一:factory(),参数一自定义服务的名字,参数二:数组前面的元素要依赖的服务名,最后一个是回调函数</p>
+<pre><code>app.factory(&quot;hmDate&quot;, [&quot;$filter&quot;, 
+function($filter) {
+return {
+    now: function() {
+        return $filter(&quot;date&quot;)(new Date,
+ &quot;yyyy-MM-dd HH:mm:ss&quot;);
+    },
+    format: function(format) {
+     return $filter(&quot;date&quot;)(new Date, format);
+    }
+};
+}]);
+</code></pre><p>方法二:service参数1: 自定义服务的名称.参数2: 数组, 前面的元素写上要依赖的服务名称 形参注入</p>
+<pre><code>app.service(&quot;itcast&quot;,[function(){
+     this.now = function(){
+         return new Date();
+        };
+     this.sayHi = function(){
+         console.log(&quot;hi.....&quot;);
+        }
+}]);
+</code></pre><h3 id="配置块"><a href="#配置块" class="headerlink" title="配置块"></a>配置块</h3><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>ng在执行阶段,其中有一步骤.叫做配置和运行.这一阶段允许我们写代码来对ng进行一些配置.</p>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>模块对象提供了一个方法叫做config。这个方法就允许我们对内置的服务进行配置.参数: 数组. 数组前面写上你要配置的服务对应的Provider最后1个元素是1个回调函数. 将Provider注入进行配置.</p>
+<p>配置对应的provider<br>$log – $logProvider<br>$filter – $filterProvider<br>$http – $httpProvider</p>
+<pre><code>app.config([&quot;$filterProvider&quot;, function
+($filterProvider) {
+$filterProvider.register(&quot;firstBig&quot;,
+ function() {
+    return function(data) {
+        return data[0].toUpperCase() + 
+data.slice(1);
+    }
+});
+}]);
+</code></pre><h3 id="运行块run"><a href="#运行块run" class="headerlink" title="运行块run()"></a>运行块run()</h3><h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><p>Ng提供了很多的服务,$log,$http,$interval,$timeout,但是我们必须得将其注入到控制器中使用,2.这些服务其实可以脱离控制器运行,模块对象提供了run方法,可以直接允许ng服务</p>
+<h5 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h5><p>参数:数组,里面有服务名称,最后一个元素回调</p>
+<pre><code>app.run([&quot;$log&quot;,&quot;$http&quot;,&quot;$scope&quot;,
+function($log,$http,$scope){
+   $log.warn(&quot;这是一条警告消息&quot;);
+   $scope.name = &quot;jack&quot;;
+ }]);
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基本使用主要包括:<br>ng指令:主要扩充html标签<br>过滤器:在view里对数据进行处理<br>服务:在controller里配合服务进行CRUD<br>配置块:可以通过服务的provider服务对该服务进行配置<br>运行块:之前服务在controller才可以用,但是有了run()也可以使用该方法</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -204,6 +263,14 @@ app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,function
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/10/15/Angular路由/" title="Angular路由">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Angular路由</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/07/24/bootstrap的基本使用/"  title="bootstrap的基本使用">
@@ -224,7 +291,7 @@ app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,function
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#重要特性"><span class="toc-number">1.</span> <span class="toc-text">重要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令"><span class="toc-number">3.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-概念"><span class="toc-number">3.0.1.</span> <span class="toc-text">A.概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-为什么会有"><span class="toc-number">3.0.2.</span> <span class="toc-text">B.为什么会有</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-具体分类"><span class="toc-number">3.0.3.</span> <span class="toc-text">C.具体分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-自定义指令"><span class="toc-number">3.0.4.</span> <span class="toc-text">D.自定义指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单向和双向数据绑定"><span class="toc-number">4.</span> <span class="toc-text">单向和双向数据绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-区别"><span class="toc-number">4.0.1.</span> <span class="toc-text">A.区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-单向数据绑定"><span class="toc-number">4.0.2.</span> <span class="toc-text">B.单向数据绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-双向实现方法"><span class="toc-number">4.0.3.</span> <span class="toc-text">C.双向实现方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-双向数据绑定原理"><span class="toc-number">4.0.4.</span> <span class="toc-text">D.双向数据绑定原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理"><span class="toc-number">5.</span> <span class="toc-text">事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域"><span class="toc-number">6.</span> <span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过滤器"><span class="toc-number">7.</span> <span class="toc-text">过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-作用"><span class="toc-number">7.0.1.</span> <span class="toc-text">A.作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-分类"><span class="toc-number">7.0.2.</span> <span class="toc-text">B.分类</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#重要特性"><span class="toc-number">1.</span> <span class="toc-text">重要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令"><span class="toc-number">3.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-概念"><span class="toc-number">3.0.1.</span> <span class="toc-text">A.概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-为什么会有"><span class="toc-number">3.0.2.</span> <span class="toc-text">B.为什么会有</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-具体分类"><span class="toc-number">3.0.3.</span> <span class="toc-text">C.具体分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-自定义指令"><span class="toc-number">3.0.4.</span> <span class="toc-text">D.自定义指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单向和双向数据绑定"><span class="toc-number">4.</span> <span class="toc-text">单向和双向数据绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-区别"><span class="toc-number">4.0.1.</span> <span class="toc-text">A.区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-单向数据绑定"><span class="toc-number">4.0.2.</span> <span class="toc-text">B.单向数据绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-双向实现方法"><span class="toc-number">4.0.3.</span> <span class="toc-text">C.双向实现方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-双向数据绑定原理"><span class="toc-number">4.0.4.</span> <span class="toc-text">D.双向数据绑定原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理"><span class="toc-number">5.</span> <span class="toc-text">事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域"><span class="toc-number">6.</span> <span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过滤器"><span class="toc-number">7.</span> <span class="toc-text">过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-作用"><span class="toc-number">7.0.1.</span> <span class="toc-text">A.作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-分类"><span class="toc-number">7.0.2.</span> <span class="toc-text">B.分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务"><span class="toc-number">8.</span> <span class="toc-text">服务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A-概念-1"><span class="toc-number">8.0.1.</span> <span class="toc-text">A.概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B-服务的使用"><span class="toc-number">8.0.2.</span> <span class="toc-text">B.服务的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-分类"><span class="toc-number">8.0.3.</span> <span class="toc-text">C.分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#D-自定义服务"><span class="toc-number">8.0.4.</span> <span class="toc-text">D.自定义服务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置块"><span class="toc-number">9.</span> <span class="toc-text">配置块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念"><span class="toc-number">9.0.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法"><span class="toc-number">9.0.2.</span> <span class="toc-text">方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行块run"><span class="toc-number">10.</span> <span class="toc-text">运行块run()</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用场景"><span class="toc-number">10.0.1.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用方法"><span class="toc-number">10.0.2.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">11.</span> <span class="toc-text">总结</span></a></li></ol>
  
   </div>
 

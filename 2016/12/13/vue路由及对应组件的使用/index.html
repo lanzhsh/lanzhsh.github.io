@@ -1,0 +1,479 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Vue-Router和Vue-Resource | 兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta name="description" content="组件的定义方式定义,注册,使用自定义template标签定义组件自定义script定义组件 路由1.安装npm i vue-router -S 2.导入vue-routerimport vueRouter from vue-router 3.导入需要设置路由规则的组件import home from ‘./components/home/home.vue’ 4.创建路由实例,设置规则const r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-Router和Vue-Resource">
+<meta property="og:url" content="http://yoursite.com/2016/12/13/vue路由及对应组件的使用/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:description" content="组件的定义方式定义,注册,使用自定义template标签定义组件自定义script定义组件 路由1.安装npm i vue-router -S 2.导入vue-routerimport vueRouter from vue-router 3.导入需要设置路由规则的组件import home from ‘./components/home/home.vue’ 4.创建路由实例,设置规则const r">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-04T15:10:40.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue-Router和Vue-Resource">
+<meta name="twitter:description" content="组件的定义方式定义,注册,使用自定义template标签定义组件自定义script定义组件 路由1.安装npm i vue-router -S 2.导入vue-routerimport vueRouter from vue-router 3.导入需要设置路由规则的组件import home from ‘./components/home/home.vue’ 4.创建路由实例,设置规则const r">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/12/13/vue路由及对应组件的使用/" title="Vue-Router和Vue-Resource" itemprop="url">Vue-Router和Vue-Resource</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-12-13T15:02:02.000Z" itemprop="datePublished"> 发表于 2016-12-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="组件的定义方式"><a href="#组件的定义方式" class="headerlink" title="组件的定义方式"></a>组件的定义方式</h3><p>定义,注册,使用<br>自定义template标签定义组件<br>自定义script定义组件</p>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>npm i vue-router -S</p>
+<h5 id="2-导入vue-router"><a href="#2-导入vue-router" class="headerlink" title="2.导入vue-router"></a>2.导入vue-router</h5><p>import vueRouter from vue-router</p>
+<h5 id="3-导入需要设置路由规则的组件"><a href="#3-导入需要设置路由规则的组件" class="headerlink" title="3.导入需要设置路由规则的组件"></a>3.导入需要设置路由规则的组件</h5><p>import home from ‘./components/home/home.vue’</p>
+<h5 id="4-创建路由实例-设置规则"><a href="#4-创建路由实例-设置规则" class="headerlink" title="4.创建路由实例,设置规则"></a>4.创建路由实例,设置规则</h5><p>const router = new VueRouter({<br>routes: [<br>{ path: ‘/category’, component: category },<br>]<br>})</p>
+<h5 id="5-创建和挂载实例-通过router配置参数注入路由"><a href="#5-创建和挂载实例-通过router配置参数注入路由" class="headerlink" title="5.创建和挂载实例,通过router配置参数注入路由"></a>5.创建和挂载实例,通过router配置参数注入路由</h5><p>new Vue({<br>el: “#app”,<br>router,<br>render: function(createElement) { //项目一启动之后，呈现给用户的第一个组件<br>return createElement(App)<br>}<br>})</p>
+<h3 id="vue-resource"><a href="#vue-resource" class="headerlink" title="vue-resource"></a>vue-resource</h3><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>对ajax的封装,后台请求数据</p>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>安装<br>npm i vue-source -S</p>
+<p>导入<br>在main.js中import vueResource from ‘vue-resource’</p>
+<p>集成<br>Vue,use(vueResource)</p>
+<p>导出<br>在对应组件中使用,用export default导出Vue对象,是给数据提供数据和用户交互</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code>export default{
+//data指的是数据对象
+data(){
+  return{
+    lunboArray:[]
+  }
+},
+created(){
+  this.getLunboData()
+},
+methods:{
+  //获取需要的数据
+  getLunboData(){
+    const url=&apos;http://182.254.
+    146.100:8899/api/getlunbo&apos;;
+    this.$http.get(url).then
+    (response=&gt;{
+      console.log(response);
+      this.lunboArray=response.
+        body.message
+    })
+  }
+}
+}
+</code></pre><h3 id="route和-router的区别"><a href="#route和-router的区别" class="headerlink" title="$route和$router的区别"></a>$route和$router的区别</h3><p>$route是设置路径相关,比如监控路由,获取参数</p>
+<p>$router执行者,执行一个动作<br>写js代码实现路由的前进后退和回退,也叫编程式导航</p>
+<pre><code>goBack(){
+    this.$router.go(-1)
+  }
+</code></pre><h3 id="导航分类"><a href="#导航分类" class="headerlink" title="导航分类"></a>导航分类</h3><p>编程式导航:写js代码实现路由的前进后退和回退<br>声明式导航:事先声明在template标签里面</p>
+<pre><code>&lt;router-link to=&quot;/news/newslist&quot;&gt;
+&lt;/router-link&gt;
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/12/13/vue路由及对应组件的使用/" data-title="Vue-Router和Vue-Resource | 兰志盛的博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/12/15/vue组件书写代码段/" title="vue组件书写代码段">
+  <strong>上一篇：</strong><br/>
+  <span>
+  vue组件书写代码段</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/15/ES6常用规范/"  title="ES6常用规范">
+ <strong>下一篇：</strong><br/> 
+ <span>ES6常用规范
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#组件的定义方式"><span class="toc-number">1.</span> <span class="toc-text">组件的定义方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由"><span class="toc-number">2.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-安装"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-导入vue-router"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.导入vue-router</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-导入需要设置路由规则的组件"><span class="toc-number">2.0.3.</span> <span class="toc-text">3.导入需要设置路由规则的组件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-创建路由实例-设置规则"><span class="toc-number">2.0.4.</span> <span class="toc-text">4.创建路由实例,设置规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-创建和挂载实例-通过router配置参数注入路由"><span class="toc-number">2.0.5.</span> <span class="toc-text">5.创建和挂载实例,通过router配置参数注入路由</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue-resource"><span class="toc-number">3.</span> <span class="toc-text">vue-resource</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念"><span class="toc-number">3.0.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用"><span class="toc-number">3.0.2.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码"><span class="toc-number">3.0.3.</span> <span class="toc-text">代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route和-router的区别"><span class="toc-number">4.</span> <span class="toc-text">$route和$router的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导航分类"><span class="toc-number">5.</span> <span class="toc-text">导航分类</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

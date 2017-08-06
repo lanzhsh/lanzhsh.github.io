@@ -1,0 +1,732 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>兰志盛的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LanZhiSheng">
+    
+
+    
+    <meta property="og:type" content="website">
+<meta property="og:title" content="兰志盛的博客">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="兰志盛的博客">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="兰志盛的博客">
+
+    
+    <link rel="alternative" href="/atom.xml" title="兰志盛的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/logo1.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+    <div>
+        
+            <div id="imglogo">
+                <a href="/"><img src="/img/logo1.png" alt="兰志盛的博客" title="兰志盛的博客"/></a>
+            </div>
+            
+                <div id="textlogo">
+                    <h1 class="site-name">
+                        <a href="/" title="兰志盛的博客">
+                            兰志盛的博客
+                        </a>
+                    </h1>
+                    <h2 class="blog-motto">
+                        
+                    </h2>
+                </div>
+                <div class="navbar">
+                    <a class="navbutton navmobile" href="#" title="菜单">
+                    </a>
+                </div>
+                <nav class="animated">
+                    <ul>
+                        <ul>
+                            
+                                <li>
+                                    <a href="/archives">
+                                        目录
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/about">
+                                        关于作者
+                                    </a>
+                                </li>
+                                
+                                    <li>
+                                        
+                                                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                                                            <label>Search</label>
+                                                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+                                                            <input type="hidden" name="q" value="site:yoursite.com">
+                                                        </form>
+                                                        
+                                    </li>
+                        </ul>
+                </nav>
+    </div>
+    </header>
+    <div id="container">
+      <script>
+    location.href = '/archives';
+</script>
+<div id="main">
+    
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/25/闭包/" title="闭包的应用及优缺点" itemprop="url">闭包的应用及优缺点</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-25T15:36:22.000Z" itemprop="datePublished"> 发表于 2016-04-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><pre><code>闭包就是在函数里面使用局部变量
+</code></pre><h3 id="两种模型"><a href="#两种模型" class="headerlink" title="两种模型"></a>两种模型</h3><pre><code>A.函数模型
+function getName(){
+    var name=&apos;张三&apos;;
+    function getName1(){
+        console.log(name);
+    }
+}
+
+B.对象模型
+function getName(){
+    var name=&apos;张三&apos;;
+   return{ getName1:function getName1(){
+        console.log(name);
+        }
+    }
+}
+</code></pre><h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><pre><code>A.沙箱模式:
+  1.运用自执行函数分割作用域,并用return暴露接口,
+  可以解决全局变量污染问题;
+  2.代码
+  var name= (function(){
+    var name=&apos;张三&apos;;
+   return{ getName1:function(){
+        console.log(name);
+        }
+    }
+  })()
+
+B.计数器:
+var count1=(function(){
+    var i=0;
+    return {
+        count: function(){
+            console.log(i++);
+        }
+    }
+})();
+console.log(count1);
+count1.count();
+count1.count();
+
+C.面向对象封装一些组件时缓存this
+</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><pre><code>A.优点:
+可以访问函数外面的局部变量;
+B.缺点:
+会造成内存泄漏,所以要少用;
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/18/https-SSH和MD5加密/" title="https,SSH和MD5加密原理与比较" itemprop="url">https,SSH和MD5加密原理与比较</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-18T14:33:18.000Z" itemprop="datePublished"> 发表于 2016-02-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="https"><a href="#https" class="headerlink" title="https"></a>https</h3><h5 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h5><pre><code>A.就是在http加入SSL层,是http安全的基础;
+B.htts协议是在http基础上加了SSL协议;
+C.使用443端口,http是80端口;
+D.由网景公司开发并内置在浏览器中;
+</code></pre><h5 id="2-作用"><a href="#2-作用" class="headerlink" title="2.作用"></a>2.作用</h5><pre><code>A.建立一个信息安全通道,来保证数据传输的安全;
+B.确认网站的真实性,可以查看网站认证的真实性;
+</code></pre><hr>
+<h5 id="3-核心是SSL层"><a href="#3-核心是SSL层" class="headerlink" title="3.核心是SSL层"></a>3.核心是SSL层</h5><p>A.位置:是一个安全套层,是介于TCP?IP之间;<br>B.分类:<br>SSL记录协议:建立在TCP之上,为数据提供数据封装、压缩、加密;<br>SSL握手协议:建立在记录之上,数据传输之前双方的身份验证、协商加密算法、交换密钥;<br>C.SSL服务器认证过程:<br>客户端发送请求<br>服务器判断是否需要生成新主密钥,需要则返回<br>客户端收到信息,产生一个主密钥,并用公钥加密传输<br>服务器恢复该主密钥,并返回一个认证信息</p>
+<hr>
+<h5 id="4-SSL协议"><a href="#4-SSL协议" class="headerlink" title="4.SSL协议"></a>4.SSL协议</h5><p>A.SSL协议包括:握手(凭证交换和验证)和记录协议(数据进行加密);<br>B.SSL握手协议过程:<br>1.客服端发送SSL的版本号,算法种类,产生的随机数等;<br>2.服务器发送服务器的SSL协议的版本号,算法种类和证书(里面有公钥);<br>3.客服端验证;<br>4.验证通过随机产生对称密码,公钥加密产生预主密码,传输给服务器;<br>5.服务器可以要求验证身份,包括客户证书和签名随机数;<br>6.验证通过:服务器用私钥解开密码,对称密钥产生;<br>7.客服端发信息确认后面数据采用该通讯;<br>8.服务器端回应<br>C.整个过程涉及到3次请求,3次响应</p>
+<h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>1.概念</p>
+<p>非对称性加密,包括传输层,用户认证和连接协议</p>
+<p>2.原理</p>
+<p>A,在a计算机中产生一对公钥和私钥<br>B,私钥不动,把公钥发送给计算机b,公钥很复杂,就算过程被窃取,第三方不懂什么意思<br>C,a和b首次进行尝试通讯,a发送的内容通过a存放的私钥进行加密,在网络中进行密文件传输<br>D,b也会对该端内容使用公钥解密,如果能两台计算机就结成亲密关系<br>E,以后a和b发送消息用私钥和公钥进行数据加密解密操作</p>
+<p>3.用法</p>
+<p>A.本地生成密钥:ssh-keygen -t rsa<br>B.密钥生成再c盘,将公钥方法github中,然后下次通讯就可以用SSH通讯</p>
+<h3 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h3><p>1.概念</p>
+<pre><code>信息摘要算法
+</code></pre><p>2.特性</p>
+<p>A.MD5加密输出是32位字符串;<br>B.相同的内容使用MD5加密后,得到的内容一样的;<br>C.MD5无法反向解密,唯一就是暴力碰撞破解(就是试32位密码);<br>D.为了防止暴力破解,可以加盐处理;</p>
+<p>3.使用方法:</p>
+<pre><code>A.下载 npm i -S blueimp-md5;
+B.引包
+C.加密方式:
+  普通加密:var val=md5(&apos;value&apos;);
+  加盐:var val=md5(&apos;value&apos;,&apos;这是第一次加盐处理&apos;);
+</code></pre><h3 id="SSL-SSH和md5的对比"><a href="#SSL-SSH和md5的对比" class="headerlink" title="SSL,SSH和md5的对比"></a>SSL,SSH和md5的对比</h3><pre><code>1.SSL是一个独立的安全套层加密协议;
+  位于TCP(应用层)和IP(网络层)之间;
+  只是起到将数据加密和验证作用;
+2.SSH有加密,连接和认证功能;
+3.md5只是简单讲数据加密传输或者被存贮到数据库;
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/05/本地存贮和离线缓存/" title="本地存贮和离线缓存" itemprop="url">本地存贮和离线缓存</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-04T16:09:31.000Z" itemprop="datePublished"> 发表于 2016-01-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="本地存贮的三种方式"><a href="#本地存贮的三种方式" class="headerlink" title="本地存贮的三种方式"></a>本地存贮的三种方式</h3><h5 id="1-cookie"><a href="#1-cookie" class="headerlink" title="1.cookie"></a>1.cookie</h5><h6 id="A-特性"><a href="#A-特性" class="headerlink" title="A.特性:"></a>A.特性:</h6><p>存贮大小只有4K,如果不设置存贮周期就是在浏览器会话期间;</p>
+<h6 id="B-原生设置"><a href="#B-原生设置" class="headerlink" title="B.原生设置:"></a>B.原生设置:</h6><pre><code>//第一种：写入2个cookie
+//document.cookie=&quot;name=张三&quot;;
+//document.cookie=&quot;age=20&quot;;
+
+//第二种方式：设置cookie有效期
+//document.cookie=&quot;userAge=18;expires=&quot;+new Data
+(&quot;2016-1-7 08:00:00&quot;);
+
+//读取cookie：
+console.log(document.cookie);
+</code></pre><h6 id="C-jquery设置"><a href="#C-jquery设置" class="headerlink" title="C.jquery设置:"></a>C.jquery设置:</h6><pre><code> //1、设置会话cookie(关闭浏览器之后，数据就丢失了)
+$.cookie(&quot;userName&quot;,&quot;c5&quot;);
+$.cookie(&quot;userId&quot;,&quot;888&quot;);
+//2、获取cookie值
+console.log($.cookie(&quot;userName&quot;));//&quot;c5&quot;
+
+//3、设置cookie有效期
+$.cookie(&quot;userAge&quot;,&quot;18&quot;,{
+    expires:0.1   //7天
+});
+
+//4、删除cookie
+$.removeCookie(&quot;userAge&quot;);
+</code></pre><h6 id="D-应用"><a href="#D-应用" class="headerlink" title="D.应用:"></a>D.应用:</h6><p>主要是存贮服务器返回的sessionId,并且下一次http请求传入服务器</p>
+<h5 id="2-localstorage和sessionstorage"><a href="#2-localstorage和sessionstorage" class="headerlink" title="2.localstorage和sessionstorage"></a>2.localstorage和sessionstorage</h5><h6 id="A-特性-1"><a href="#A-特性-1" class="headerlink" title="A.特性:"></a>A.特性:</h6><pre><code>前者20M,可以在多个窗口共享数据,周期永久,除非手动删除
+后者5M,不能在多个窗口共享数据,周期为会话期间
+两者都是h5出来的新对象
+</code></pre><h6 id="B-设置-获取与删除"><a href="#B-设置-获取与删除" class="headerlink" title="B.设置,获取与删除:"></a>B.设置,获取与删除:</h6><pre><code>window.localstorage/sessionstorage.setItem()/
+getItem()/removeItem();
+
+localStorage.setItem(&apos;name&apos;,&quot;张六&quot;);
+ localStorage.setItem(&apos;age&apos;,22);
+  console.log(localStorage.getItem(&apos;age&apos;));
+  console.log(localStorage.getItem(&apos;name&apos;));
+</code></pre><h6 id="C-应用"><a href="#C-应用" class="headerlink" title="C.应用:"></a>C.应用:</h6><pre><code>多窗口共享数据;存贮ajax请求拿到的数据,如购物车等
+</code></pre><h5 id="3-cookie和session解决的http无状态性问题"><a href="#3-cookie和session解决的http无状态性问题" class="headerlink" title="3.cookie和session解决的http无状态性问题"></a>3.cookie和session解决的http无状态性问题</h5><h6 id="A-cookie"><a href="#A-cookie" class="headerlink" title="A.cookie"></a>A.cookie</h6><p>1.域名相同的cookie是通过请求头传递到服务器的,(浏览器的默认行为);<br>2.服务器的请求头可以通过req.header获取===&gt;调用res处理===&gt;cookie可以写入响应头.数据写入响应体,结束响应===&gt;发送给客服端===&gt;客服端可以自动拿到响应头和响应体;<br>3..cookie写入响应头方法</p>
+<pre><code>res.writeHeader(200, {
+  &apos;Content-Type&apos;: &apos;text/html; charset=utf-8&apos;,
+  &apos;Set-Cookie&apos;: [&apos;isvisit=yes;&apos;age=20&apos;]
+});
+</code></pre><h5 id="B-session"><a href="#B-session" class="headerlink" title="B.session"></a>B.session</h5><pre><code>1.为什么有了cookie还要用session?
+  因为用户登录的信息贮存在浏览器端不安全.
+2.原理:
+  客户登录;
+  服务器拿到数据验证,OK后登录成功;
+  保存当前登录用户的状态和登录信息;
+  服务器开辟内存空间贮存,并将sessionId返回cookie;
+  第二次登录携带cookie的sessionId验证
+</code></pre><h3 id="离线缓存"><a href="#离线缓存" class="headerlink" title="离线缓存"></a>离线缓存</h3><h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h5><p>将互联网上的资源缓存到本地,断网也可以访问,主要是h5的application实现</p>
+<h5 id="2-实现方法-h5的新方法"><a href="#2-实现方法-h5的新方法" class="headerlink" title="2.实现方法(h5的新方法)"></a>2.实现方法(h5的新方法)</h5><h6 id="A-建一个manifest文件-并中引入"><a href="#A-建一个manifest文件-并中引入" class="headerlink" title="A.建一个manifest文件,并中引入"></a>A.建一个manifest文件,并中引入</h6><h6 id="B-manifest文件主要内容"><a href="#B-manifest文件主要内容" class="headerlink" title="B.manifest文件主要内容:"></a>B.manifest文件主要内容:</h6><pre><code>CACHE MANIFEST
+该符号后面的内容为注释信息，第一行不能少
+CACHE:
+需要缓存的文件
+NETWORK:
+ 不需要缓存的文件
+FALLBACK:
+ 当页面无法访问时的回退页面/重定向
+</code></pre><h6 id="C-js操作缓存"><a href="#C-js操作缓存" class="headerlink" title="C.js操作缓存:"></a>C.js操作缓存:</h6><p>缓存的属性:applicationCache.status(值为0-5);<br>缓存的事件:update(更新),updateready(已经更新完),progress(进度)</p>
+<h6 id="D-例子"><a href="#D-例子" class="headerlink" title="D.例子:"></a>D.例子:</h6><p>applicationCache.update();//更新</p>
+<p>application.addEventListener(‘updateready’, function(){<br>console.log(‘已完成缓存的更新’);}, false);//已经完成</p>
+<p>application.addEventListener(‘progress’, function(){<br>console.log(applicationCache.status); }, false);//进度</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/16/网络协议层之http协议/" title="网络协议层之http协议" itemprop="url">网络协议层之http协议</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-16T15:07:51.000Z" itemprop="datePublished"> 发表于 2015-11-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="网络协议层划分"><a href="#网络协议层划分" class="headerlink" title="网络协议层划分"></a>网络协议层划分</h3><pre><code>OSI/RM,开放系统互连参考模型
+</code></pre><h3 id="7个分类"><a href="#7个分类" class="headerlink" title="7个分类"></a>7个分类</h3><pre><code>1.物理层:电力,光纤光缆
+2.数据链路层:WiFi
+3.网络层:IP(IPv4,IPv6),也就是localehost(本地主机),最常见的是webstorm和HBuilder编辑器
+内置服务器打开编辑的项目就是该协议,实现原理是给回路网络接口一个标准主机名(相对的IP地址是127.0.0.1)
+4.传输层:TCP
+5.会话层:是建立在传输层之上，利用传输层提供的服务，使应用建立和维持会话
+6.表示层:向上对应用层服务，向下接受来自会话层的服务。表示层为在应用过程之间传送的信息提供表示方法的服务
+7.应用层:http和FTP
+</code></pre><h3 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h3><p>1.概念</p>
+<pre><code>A.超文本传输协议,是一个客户端和服务器端请求和应答的标准（TCP）。
+B.在前端web发送请求主要使用http请求
+</code></pre><p>2.http协议请求过程</p>
+<pre><code>A.用户输入通过URL;
+B.三次握手:
+  第一次客服端发送syn(同步序列编号)包到服务器;
+  第二次服务器收到syn包,确认客户的SYN+ACK包,同时也发送一个SYN包;
+  第三次客服端收到包,向服务器发送ACK确认包
+C.三次握手TCP/IP连接成功;
+D.DNS解析;
+E.请求头(主要设置请求数据的编码格式和后台session返回的sessionID),请求行,请求主体。请求过程叫请求报文；
+F.服务器处理并响应头,响应行,响应主体。这个过程叫响应报文。
+</code></pre><p>3.http是无状态性的</p>
+<pre><code>就是说每个协议之间无关联，请求完成服务器完成忘记请求记录；
+那么web页面的http请求怎么完成登录状态的保持?下次再总结。
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/29/ajax原理及封装/" title="ajax原理和封装" itemprop="url">ajax原理和封装</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-29T13:26:08.000Z" itemprop="datePublished"> 发表于 2015-10-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><pre><code>异步的JS和XML
+</code></pre><h3 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h3><pre><code>1. 是ajax的核心机制;
+2. 属性:readyState,请求状态,对应5个值;esponseText:服务器收到的响应体;responseXML:
+返回XML;status:状态代码;statusText:属性名称指定状态代码;
+3. 事件:Onreadystatechange,每次readyState属性改变调用的事件,因为load事件有兼容性
+4. 方法:abort()取消响应,取消后readyState为0;setRequestHeader()设置HTTP请求;请求行open
+</code></pre><h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><pre><code>通过XMLHttpRequest对象的get/post发送请求头,请求行,请求主体,服务器响应头,响应行,响应主体
+</code></pre><h3 id="get和post发送请求"><a href="#get和post发送请求" class="headerlink" title="get和post发送请求"></a>get和post发送请求</h3><p>1.get</p>
+<pre><code>if (window.XMLHttpRequest) {  
+var xhr = new XMLHttpRequest();  
+} else {  
+var xhr = new  ActiveXObject();  
+}  
+xhr.open(&apos;get&apos;, url ? &apos;jack=18&apos; / xhr.open);
+xhr.onload = function() { xhr.responseText };
+</code></pre><p>2.post</p>
+<pre><code>if (window.XMLHttpRequest) {
+    var xhr = new XMLHttpRequest();
+} else {
+    var xhr = new ActiveXObject();
+}
+xhr.open(&apos;post&apos;, url);
+xhr.onload = function() { xhr.responseText };
+xhr.send(&apos;jack=18&apos;);
+</code></pre><p>3.get和post的区别:</p>
+<pre><code>A.get能在URL看到参数而post看不到;
+B.get因为是拼接到url后面是有大小限制的,post如果服务器没有限制大小就可无限上传
+C.url因为提交到服务器是拼接到url后面是QueryString类型,后台可以直接解析,
+D.以post方式向服务器发送数据,默认数据格式是RequestPayload,这种格式在PHP中$POST无法获取(解析);
+E.post还有一种格式Form Data,服务器可以正常拿到
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+                
+                    <nav id="page-nav" class="clearfix">
+                        <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+                    </nav>
+                    
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://developer.mozilla.org/zh-CN/" target="_blank" title="一个面向程序员交流分享的新一代社区">MDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+    <a href="/archives" target="_blank" title="rss">回到目录</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" style="width:100%;background-color:#00b38a">
+    
+        <div class="line">
+            <span></span>
+            <div class="author"></div>
+        </div>
+        
+            
+                <section class="info">
+                    <p>
+                        WEB前端工程师 <br/>
+                            两年工作经验
+
+                    </p>
+                </section>
+                
+                    <!-- <div class="social-font" class="clearfix">
+                        
+                                
+                                        
+                                                
+                                                        
+                                                                
+                                                                        
+                                                                                
+                                                                                        
+                                                                                                
+                    </div> -->
+                    
+                        
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

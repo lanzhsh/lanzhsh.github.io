@@ -96,81 +96,52 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/05/本地存贮和离线缓存/" title="本地存贮和离线缓存" itemprop="url">本地存贮和离线缓存</a>
+      <a href="/2016/11/10/跨域的原理-方法及应用/" title="跨域的原理,方法及应用" itemprop="url">跨域的原理,方法及应用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-04T16:09:31.000Z" itemprop="datePublished"> 发表于 2016-01-05</time>
+    <time datetime="2016-11-10T12:58:24.000Z" itemprop="datePublished"> 发表于 2016-11-10</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="本地存贮的三种方式"><a href="#本地存贮的三种方式" class="headerlink" title="本地存贮的三种方式"></a>本地存贮的三种方式</h3><h5 id="1-cookie"><a href="#1-cookie" class="headerlink" title="1.cookie"></a>1.cookie</h5><h6 id="A-特性"><a href="#A-特性" class="headerlink" title="A.特性:"></a>A.特性:</h6><p>存贮大小只有4K,如果不设置存贮周期就是在浏览器会话期间;</p>
-<h6 id="B-原生设置"><a href="#B-原生设置" class="headerlink" title="B.原生设置:"></a>B.原生设置:</h6><pre><code>//第一种：写入2个cookie
-//document.cookie=&quot;name=张三&quot;;
-//document.cookie=&quot;age=20&quot;;
-
-//第二种方式：设置cookie有效期
-//document.cookie=&quot;userAge=18;expires=&quot;+new Data
-(&quot;2016-1-7 08:00:00&quot;);
-
-//读取cookie：
-console.log(document.cookie);
-</code></pre><h6 id="C-jquery设置"><a href="#C-jquery设置" class="headerlink" title="C.jquery设置:"></a>C.jquery设置:</h6><pre><code> //1、设置会话cookie(关闭浏览器之后，数据就丢失了)
-$.cookie(&quot;userName&quot;,&quot;c5&quot;);
-$.cookie(&quot;userId&quot;,&quot;888&quot;);
-//2、获取cookie值
-console.log($.cookie(&quot;userName&quot;));//&quot;c5&quot;
-
-//3、设置cookie有效期
-$.cookie(&quot;userAge&quot;,&quot;18&quot;,{
-    expires:0.1   //7天
-});
-
-//4、删除cookie
-$.removeCookie(&quot;userAge&quot;);
-</code></pre><h6 id="D-应用"><a href="#D-应用" class="headerlink" title="D.应用:"></a>D.应用:</h6><p>主要是存贮服务器返回的sessionId,并且下一次http请求传入服务器</p>
-<h5 id="2-localstorage和sessionstorage"><a href="#2-localstorage和sessionstorage" class="headerlink" title="2.localstorage和sessionstorage"></a>2.localstorage和sessionstorage</h5><h6 id="A-特性-1"><a href="#A-特性-1" class="headerlink" title="A.特性:"></a>A.特性:</h6><pre><code>前者20M,可以在多个窗口共享数据,周期永久,除非手动删除
-后者5M,不能在多个窗口共享数据,周期为会话期间
-两者都是h5出来的新对象
-</code></pre><h6 id="B-设置-获取与删除"><a href="#B-设置-获取与删除" class="headerlink" title="B.设置,获取与删除:"></a>B.设置,获取与删除:</h6><pre><code>window.localstorage/sessionstorage.setItem()/
-getItem()/removeItem();
-
-localStorage.setItem(&apos;name&apos;,&quot;张六&quot;);
- localStorage.setItem(&apos;age&apos;,22);
-  console.log(localStorage.getItem(&apos;age&apos;));
-  console.log(localStorage.getItem(&apos;name&apos;));
-</code></pre><h6 id="C-应用"><a href="#C-应用" class="headerlink" title="C.应用:"></a>C.应用:</h6><pre><code>多窗口共享数据;存贮ajax请求拿到的数据,如购物车等
-</code></pre><h5 id="3-cookie和session解决的http无状态性问题"><a href="#3-cookie和session解决的http无状态性问题" class="headerlink" title="3.cookie和session解决的http无状态性问题"></a>3.cookie和session解决的http无状态性问题</h5><h6 id="A-cookie"><a href="#A-cookie" class="headerlink" title="A.cookie"></a>A.cookie</h6><p>1.域名相同的cookie是通过请求头传递到服务器的,(浏览器的默认行为);<br>2.服务器的请求头可以通过req.header获取===&gt;调用res处理===&gt;cookie可以写入响应头.数据写入响应体,结束响应===&gt;发送给客服端===&gt;客服端可以自动拿到响应头和响应体;<br>3..cookie写入响应头方法</p>
-<pre><code>res.writeHeader(200, {
-  &apos;Content-Type&apos;: &apos;text/html; charset=utf-8&apos;,
-  &apos;Set-Cookie&apos;: [&apos;isvisit=yes;&apos;age=20&apos;]
-});
-</code></pre><h5 id="B-session"><a href="#B-session" class="headerlink" title="B.session"></a>B.session</h5><pre><code>1.为什么有了cookie还要用session?
-  因为用户登录的信息贮存在浏览器端不安全.
-2.原理:
-  客户登录;
-  服务器拿到数据验证,OK后登录成功;
-  保存当前登录用户的状态和登录信息;
-  服务器开辟内存空间贮存,并将sessionId返回cookie;
-  第二次登录携带cookie的sessionId验证
-</code></pre><h3 id="离线缓存"><a href="#离线缓存" class="headerlink" title="离线缓存"></a>离线缓存</h3><h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h5><p>将互联网上的资源缓存到本地,断网也可以访问,主要是h5的application实现</p>
-<h5 id="2-实现方法-h5的新方法"><a href="#2-实现方法-h5的新方法" class="headerlink" title="2.实现方法(h5的新方法)"></a>2.实现方法(h5的新方法)</h5><h6 id="A-建一个manifest文件-并中引入"><a href="#A-建一个manifest文件-并中引入" class="headerlink" title="A.建一个manifest文件,并中引入"></a>A.建一个manifest文件,并中引入</h6><h6 id="B-manifest文件主要内容"><a href="#B-manifest文件主要内容" class="headerlink" title="B.manifest文件主要内容:"></a>B.manifest文件主要内容:</h6><pre><code>CACHE MANIFEST
-该符号后面的内容为注释信息，第一行不能少
-CACHE:
-需要缓存的文件
-NETWORK:
- 不需要缓存的文件
-FALLBACK:
- 当页面无法访问时的回退页面/重定向
-</code></pre><h6 id="C-js操作缓存"><a href="#C-js操作缓存" class="headerlink" title="C.js操作缓存:"></a>C.js操作缓存:</h6><p>缓存的属性:applicationCache.status(值为0-5);<br>缓存的事件:update(更新),updateready(已经更新完),progress(进度)</p>
-<h6 id="D-例子"><a href="#D-例子" class="headerlink" title="D.例子:"></a>D.例子:</h6><p>applicationCache.update();//更新</p>
-<p>application.addEventListener(‘updateready’, function(){<br>console.log(‘已完成缓存的更新’);}, false);//已经完成</p>
-<p>application.addEventListener(‘progress’, function(){<br>console.log(applicationCache.status); }, false);//进度</p>
+        <h3 id="原生跨域"><a href="#原生跨域" class="headerlink" title="原生跨域"></a>原生跨域</h3><p>准备1个函数 这个函数至少带1个参数.</p>
+<pre><code>function processStu(data) {
+        console.log(data);
+    }
+</code></pre><p>创建1个script标签.利用src属性发起跨域请求.将函数名称发给服务器.</p>
+<pre><code>&lt;script src=&quot;./php/stus.php?callback=
+processStu&quot;&gt;&lt;/script&gt;
+</code></pre><p>服务器:处理数据.去除浏览器发给我的函数的名称.返回: 函数名称(真正的数据)</p>
+<p>浏览器通过ajax请求拿到返回的数据 就当做js代码执行.</p>
+<p>函数的参数就是服务器真正给我的数据.</p>
+<h3 id="angularJS实现跨域"><a href="#angularJS实现跨域" class="headerlink" title="angularJS实现跨域"></a>angularJS实现跨域</h3><h5 id="A-配置白名单"><a href="#A-配置白名单" class="headerlink" title="A.配置白名单"></a>A.配置白名单</h5><pre><code>app.config([&apos;$sceDelegateProvider&apos;, 
+function ($sceDelegateProvider) {
+// 设置白名单
+$sceDelegateProvider.resourceUrlWhitelist
+([&apos;http://api.map.baidu.com/telematics
+/v3/weather&apos;]);
+}])
+</code></pre><h5 id="B-启用-http服务"><a href="#B-启用-http服务" class="headerlink" title="B.启用$http服务"></a>B.启用$http服务</h5><pre><code>app.controller(&quot;demoCtrl&quot;, [&quot;$scope&quot;, &quot;$http&quot;,
+ function ($scope, $http) {
+   $http({
+     url: &quot;http://api.map.baidu.com/telematics
+     /v3/weather&quot;,
+     method: &quot;jsonp&quot;,
+     params: {
+     ak: &quot;0A5bc3c4fb543c8f9bc54b77bc155724&quot;,
+     location: &quot;深圳&quot;,
+     output: &quot;json&quot;
+     }
+    }).then(function (response) {
+      console.log(response.data);
+  });
+ }]);
+</code></pre><h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>调用第三方接口,如用qq或微信的快捷登录,支付接口等;</p>
 
         
         
@@ -207,44 +178,47 @@ FALLBACK:
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/16/网络协议层之http协议/" title="网络协议层之http协议" itemprop="url">网络协议层之http协议</a>
+      <a href="/2016/10/15/Angular路由/" title="Angular路由" itemprop="url">Angular路由</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-16T15:07:51.000Z" itemprop="datePublished"> 发表于 2015-11-16</time>
+    <time datetime="2016-10-15T14:15:34.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="网络协议层划分"><a href="#网络协议层划分" class="headerlink" title="网络协议层划分"></a>网络协议层划分</h3><pre><code>OSI/RM,开放系统互连参考模型
-</code></pre><h3 id="7个分类"><a href="#7个分类" class="headerlink" title="7个分类"></a>7个分类</h3><pre><code>1.物理层:电力,光纤光缆
-2.数据链路层:WiFi
-3.网络层:IP(IPv4,IPv6),也就是localehost(本地主机),最常见的是webstorm和HBuilder编辑器
-内置服务器打开编辑的项目就是该协议,实现原理是给回路网络接口一个标准主机名(相对的IP地址是127.0.0.1)
-4.传输层:TCP
-5.会话层:是建立在传输层之上，利用传输层提供的服务，使应用建立和维持会话
-6.表示层:向上对应用层服务，向下接受来自会话层的服务。表示层为在应用过程之间传送的信息提供表示方法的服务
-7.应用层:http和FTP
-</code></pre><h3 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h3><p>1.概念</p>
-<pre><code>A.超文本传输协议,是一个客户端和服务器端请求和应答的标准（TCP）。
-B.在前端web发送请求主要使用http请求
-</code></pre><p>2.http协议请求过程</p>
-<pre><code>A.用户输入通过URL;
-B.三次握手:
-  第一次客服端发送syn(同步序列编号)包到服务器;
-  第二次服务器收到syn包,确认客户的SYN+ACK包,同时也发送一个SYN包;
-  第三次客服端收到包,向服务器发送ACK确认包
-C.三次握手TCP/IP连接成功;
-D.DNS解析;
-E.请求头(主要设置请求数据的编码格式和后台session返回的sessionID),请求行,请求主体。请求过程叫请求报文；
-F.服务器处理并响应头,响应行,响应主体。这个过程叫响应报文。
-</code></pre><p>3.http是无状态性的</p>
-<pre><code>就是说每个协议之间无关联，请求完成服务器完成忘记请求记录；
-那么web页面的http请求怎么完成登录状态的保持?下次再总结。
+        <h3 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h3><h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>hash模式:如果a标签的href属性以”#”开头，那么当点击这个a标签时就会触发hashchange事件，在该事件处理函数中可以做很多事，比如发ajax请求，进行DOM操作替换页面等</p>
+<p>history模式:该模式比较旧</p>
+<h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><p>实现单页面(SPA)开发;<br>路由可以实现页面的局部刷新,提升用户体验;</p>
+<h5 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h5><p>直接设置a的href属性以#开头;<br>可以使用Angular-route模块;</p>
+<h5 id="Angular-route使用方法"><a href="#Angular-route使用方法" class="headerlink" title="Angular-route使用方法"></a>Angular-route使用方法</h5><p>利用npm下载<br>在入口html中和angularJS后面引入<br>创建模块要指定依赖ngRoute模块<br>配置路由app.config(),参数是一个数组,第一个是$locationProvider,第二个是回调函数</p>
+<pre><code>app.config([&quot;$routeProvider&quot;, 
+function($routeProvider) {
+$routeProvider.when(&quot;/&quot;, {
+    redirectTo: &quot;/home&quot;
+}).otherwise({
+    templateUrl: &quot;./music/404.html&quot;
+})
+}]);
+</code></pre><h5 id="Angular-route路由参数一"><a href="#Angular-route路由参数一" class="headerlink" title="Angular-route路由参数一"></a>Angular-route路由参数一</h5><p>复杂页面才会涉及到路由参数<br>在路由的后面可以个跟 quertstring类型的参数,以?分割,config中以’/‘拿,并且不影响路由的匹配.</p>
+<pre><code>&lt;a href=&quot;#/home?name=jack&amp;age=17&quot;&gt;
+</code></pre><h5 id="Angular-route路由参数二"><a href="#Angular-route路由参数二" class="headerlink" title="Angular-route路由参数二"></a>Angular-route路由参数二</h5><p>修改路由规则<br>“/home/:type”,代表匹配到 /home 的路由必须要带参数,以”/“分割,config中以’/:’拿带参数的规则:/home/参数<br>在控制器中直接就可以使用$routeParams获取到参数的值<br>如果希望没有参数也能匹配.那么就在”/home/:type？”在后面加1个问号.</p>
+<h5 id="路由配置步骤"><a href="#路由配置步骤" class="headerlink" title="路由配置步骤"></a>路由配置步骤</h5><h6 id="A-设置锚点"><a href="#A-设置锚点" class="headerlink" title="A.设置锚点"></a>A.设置锚点</h6><p>在view里面的a设置#,多页面设置路由参数’?’,(‘/‘拿)或’type/1’,(‘/type/:leixing’);</p>
+<h6 id="B-配置路由锚点前缀"><a href="#B-配置路由锚点前缀" class="headerlink" title="B.配置路由锚点前缀"></a>B.配置路由锚点前缀</h6><pre><code>app.config([&quot;$locationProvider&quot;, function
+ ($locationProvider) {
+        $locationProvider.hashPrefix(&quot;&quot;);
+}]);
+</code></pre><h6 id="C-配置路由"><a href="#C-配置路由" class="headerlink" title="C.配置路由"></a>C.配置路由</h6><pre><code>app.config([&quot;$routeProvider&quot;, function
+($routeProvider) {
+    $routeProvider.when(&quot;/songs&quot;, {
+        templateUrl: &quot;./music/list.html&quot;,
+        controller: &quot;songCtrl&quot;
+    });
+}]);
 </code></pre>
         
         
@@ -281,49 +255,844 @@ F.服务器处理并响应头,响应行,响应主体。这个过程叫响应报�
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/29/ajax原理及封装/" title="ajax原理和封装" itemprop="url">ajax原理和封装</a>
+      <a href="/2016/10/11/AngularJS的基本使用/" title="AngularJS的基本使用" itemprop="url">AngularJS的基本使用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-29T13:26:08.000Z" itemprop="datePublished"> 发表于 2015-10-29</time>
+    <time datetime="2016-10-11T13:13:47.000Z" itemprop="datePublished"> 发表于 2016-10-11</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><pre><code>异步的JS和XML
-</code></pre><h3 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h3><pre><code>1. 是ajax的核心机制;
-2. 属性:readyState,请求状态,对应5个值;esponseText:服务器收到的响应体;responseXML:
-返回XML;status:状态代码;statusText:属性名称指定状态代码;
-3. 事件:Onreadystatechange,每次readyState属性改变调用的事件,因为load事件有兼容性
-4. 方法:abort()取消响应,取消后readyState为0;setRequestHeader()设置HTTP请求;请求行open
-</code></pre><h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><pre><code>通过XMLHttpRequest对象的get/post发送请求头,请求行,请求主体,服务器响应头,响应行,响应主体
-</code></pre><h3 id="get和post发送请求"><a href="#get和post发送请求" class="headerlink" title="get和post发送请求"></a>get和post发送请求</h3><p>1.get</p>
-<pre><code>if (window.XMLHttpRequest) {  
-var xhr = new XMLHttpRequest();  
-} else {  
-var xhr = new  ActiveXObject();  
-}  
-xhr.open(&apos;get&apos;, url ? &apos;jack=18&apos; / xhr.open);
-xhr.onload = function() { xhr.responseText };
-</code></pre><p>2.post</p>
-<pre><code>if (window.XMLHttpRequest) {
-    var xhr = new XMLHttpRequest();
-} else {
-    var xhr = new ActiveXObject();
+        <h3 id="重要特性"><a href="#重要特性" class="headerlink" title="重要特性"></a>重要特性</h3><p>MVC设计思想,model,controller和view<br>模块化,依赖注入<br>双向数据绑定</p>
+<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>1.X,我主要是自学了1.x,因为1.X用的最多2.X,4.X</p>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><h5 id="A-概念"><a href="#A-概念" class="headerlink" title="A.概念"></a>A.概念</h5><p>AngularJS自定义的HTML属性标签</p>
+<h5 id="B-为什么会有"><a href="#B-为什么会有" class="headerlink" title="B.为什么会有"></a>B.为什么会有</h5><p>html在构建应用存在很多不足</p>
+<h5 id="C-具体分类"><a href="#C-具体分类" class="headerlink" title="C.具体分类"></a>C.具体分类</h5><p>ng-app:指定作用范围<br>ng-show,hide:是否显示,隐藏,元素本身存在<br>ng-if:是否创建<br>ng-src,href:引入,引用<br>ng-class:添加类<br>ng-include=’path’,导入外部文件<br>ng-repeat=’item in arr’或ng-repeat=’(key,value) in arr’<br>ng-switch=’type’和ng-switch-when=’’配合使用</p>
+<h5 id="D-自定义指令"><a href="#D-自定义指令" class="headerlink" title="D.自定义指令"></a>D.自定义指令</h5><p>由于ng提供的指令不足以满足需求,使用directive方法</p>
+<pre><code>app.directive(&quot;hmTag&quot;, function() {
+return {
+    restrict: &quot;A&quot;,
+    //是否替换原标签
+    replace: true,
+    //模板
+    template: &quot;&lt;h1&gt;我是1个粉刷匠&lt;/h1&gt;&quot;
+    //模板路径
+    templateUrl:&apos;./inlcude演示/top.html&apos;
+    //link可以对已经指令操作
+    link: function(scope, element, attrs) {
+        //
+        element.on(&quot;click&quot;, function() {
+            console.log(&quot;我被点了吗?&quot;);
+        });
+    }
 }
-xhr.open(&apos;post&apos;, url);
-xhr.onload = function() { xhr.responseText };
-xhr.send(&apos;jack=18&apos;);
-</code></pre><p>3.get和post的区别:</p>
-<pre><code>A.get能在URL看到参数而post看不到;
-B.get因为是拼接到url后面是有大小限制的,post如果服务器没有限制大小就可无限上传
-C.url因为提交到服务器是拼接到url后面是QueryString类型,后台可以直接解析,
-D.以post方式向服务器发送数据,默认数据格式是RequestPayload,这种格式在PHP中$POST无法获取(解析);
-E.post还有一种格式Form Data,服务器可以正常拿到
+});
+</code></pre><hr>
+<h3 id="单向和双向数据绑定"><a href="#单向和双向数据绑定" class="headerlink" title="单向和双向数据绑定"></a>单向和双向数据绑定</h3><h5 id="A-区别"><a href="#A-区别" class="headerlink" title="A.区别"></a>A.区别</h5><p>单向数据绑定数据只能从控制器到视图,不可逆<br>双向是可逆的<br>绑定是ng-bind,双花括号是简写,</p>
+<h5 id="B-单向数据绑定"><a href="#B-单向数据绑定" class="headerlink" title="B.单向数据绑定"></a>B.单向数据绑定</h5><pre><code>&lt;body ng-app=&quot;hmApp&quot;&gt;
+&lt;div ng-controller=&quot;demoCtrl&quot;&gt;
+    &lt;p ng-cloak&gt;{{user.name}}&lt;/p&gt;
+    &lt;p ng-cloak&gt;{{user.info}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var app = angular.module(&quot;hmApp&quot;, []);
+    app.controller(&quot;demoCtrl&quot;, [&quot;$scope&quot;, 
+        function($scope) {
+        $scope.user = {
+            name: &quot;杰克.王&quot;,
+            info: &quot;跟着我&quot;
+        };
+    }]);
+&lt;/script&gt;
+&lt;/body&gt;
+</code></pre><h5 id="C-双向实现方法"><a href="#C-双向实现方法" class="headerlink" title="C.双向实现方法"></a>C.双向实现方法</h5><p>只作用于表单元素,设置ng-model指令</p>
+<h5 id="D-双向数据绑定原理"><a href="#D-双向数据绑定原理" class="headerlink" title="D.双向数据绑定原理"></a>D.双向数据绑定原理</h5><p>双向绑定的元素有一个watcher<br>事件触发(包括表单元素内容变化,ajax请求,点击按钮执行函数)调用digest脏数据检查<br>digest会检测所有的rootscope下所有被watcher元素</p>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><p>原生的事件是全局变量,会造成全局变量污染</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>MVC的视图之间是可以相互嵌套的，存在父子关系，在子视图可以访问父视图的值<br>没有嵌套关系的作用域是相互独立的</p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><h5 id="A-作用"><a href="#A-作用" class="headerlink" title="A.作用"></a>A.作用</h5><p>在视图显示数据的时候，将要显示的数据进行一个处理之后再显示<br>在controller里面过滤,视图显示</p>
+<h5 id="B-分类"><a href="#B-分类" class="headerlink" title="B.分类"></a>B.分类</h5><pre><code>日期data:{{now|date:"yyyy-MM-dd HH:mm:ss"}}
+货币currency:{{price|currency:"￥":1}}
+转换小写lowercase:{{msg|lowercase}}
+过滤器limitTo:{{data|limitTo:2}}
+排序orderBy:{{stus|orderBy:'age':true}}
+
+&lt;span&gt;时间{{now|date:"yyyy-MM-dd HH:mm:ss"}}
+&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;价格是{{price|currency:"￥":1}}
+&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{msg|lowercase}}&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{msg1|uppercase}}&lt;/span&gt;&lt;br&gt;
+&lt;span&gt;{{data|limitTo:2}}&lt;/span&gt;&lt;br&gt;
+
+app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,function
+($scope){
+    $scope.now = new Date();
+    $scope.price = 113.45;
+    $scope.msg = &quot;THIS IS ITCAST!&quot;;
+    $scope.msg1 = &quot;hello,everyone!&quot;;
+    $scope.data = [10,120,30,240,150,60,
+    70,380,390,1100];
+}]);
+</code></pre><h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><h5 id="A-概念-1"><a href="#A-概念-1" class="headerlink" title="A.概念"></a>A.概念</h5><p>在ng中提供某一项功能</p>
+<h5 id="B-服务的使用"><a href="#B-服务的使用" class="headerlink" title="B.服务的使用"></a>B.服务的使用</h5><p>先在控制器参数里面依赖<br>然后在回调函数里面使用</p>
+<h5 id="C-分类"><a href="#C-分类" class="headerlink" title="C.分类"></a>C.分类</h5><p>$scope是负责存贮数据模型<br>$log在控制台输出信息<br>$timeout/$interval定时服务</p>
+<p>$filter过滤器服务,与filter过滤器的区别:filter过滤器用在视图中,在显示的数据模型数据过滤再显示,$filter是直接在控制器显示,直接改变数据模型</p>
+<p>$http请求ajax,$http</p>
+<pre><code>app.controller(&quot;demoCtrl&quot;,[&quot;$scope&quot;,
+ &quot;$http&quot;, function($scope, $http) {
+$http({
+    url: &quot;./php/stus.php&quot;,
+    method: &quot;post&quot;
+}).then(function(response) {
+    console.log(response.data);
+}, function() {
+    console.log(&quot;请求失败!&quot;);
+})
+}]);
+</code></pre><h5 id="D-自定义服务"><a href="#D-自定义服务" class="headerlink" title="D.自定义服务"></a>D.自定义服务</h5><p>方法一:factory(),参数一自定义服务的名字,参数二:数组前面的元素要依赖的服务名,最后一个是回调函数</p>
+<pre><code>app.factory(&quot;hmDate&quot;, [&quot;$filter&quot;, 
+function($filter) {
+return {
+    now: function() {
+        return $filter(&quot;date&quot;)(new Date,
+ &quot;yyyy-MM-dd HH:mm:ss&quot;);
+    },
+    format: function(format) {
+     return $filter(&quot;date&quot;)(new Date, format);
+    }
+};
+}]);
+</code></pre><p>方法二:service参数1: 自定义服务的名称.参数2: 数组, 前面的元素写上要依赖的服务名称 形参注入</p>
+<pre><code>app.service(&quot;itcast&quot;,[function(){
+     this.now = function(){
+         return new Date();
+        };
+     this.sayHi = function(){
+         console.log(&quot;hi.....&quot;);
+        }
+}]);
+</code></pre><h3 id="配置块"><a href="#配置块" class="headerlink" title="配置块"></a>配置块</h3><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>ng在执行阶段,其中有一步骤.叫做配置和运行.这一阶段允许我们写代码来对ng进行一些配置.</p>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>模块对象提供了一个方法叫做config。这个方法就允许我们对内置的服务进行配置.参数: 数组. 数组前面写上你要配置的服务对应的Provider最后1个元素是1个回调函数. 将Provider注入进行配置.</p>
+<p>配置对应的provider<br>$log – $logProvider<br>$filter – $filterProvider<br>$http – $httpProvider</p>
+<pre><code>app.config([&quot;$filterProvider&quot;, function
+($filterProvider) {
+$filterProvider.register(&quot;firstBig&quot;,
+ function() {
+    return function(data) {
+        return data[0].toUpperCase() + 
+data.slice(1);
+    }
+});
+}]);
+</code></pre><h3 id="运行块run"><a href="#运行块run" class="headerlink" title="运行块run()"></a>运行块run()</h3><h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><p>Ng提供了很多的服务,$log,$http,$interval,$timeout,但是我们必须得将其注入到控制器中使用,2.这些服务其实可以脱离控制器运行,模块对象提供了run方法,可以直接允许ng服务</p>
+<h5 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h5><p>参数:数组,里面有服务名称,最后一个元素回调</p>
+<pre><code>app.run([&quot;$log&quot;,&quot;$http&quot;,&quot;$scope&quot;,
+function($log,$http,$scope){
+   $log.warn(&quot;这是一条警告消息&quot;);
+   $scope.name = &quot;jack&quot;;
+ }]);
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基本使用主要包括:<br>ng指令:主要扩充html标签<br>过滤器:在view里对数据进行处理<br>服务:在controller里配合服务进行CRUD<br>配置块:可以通过服务的provider服务对该服务进行配置<br>运行块:之前服务在controller才可以用,但是有了run()也可以使用该方法</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/24/bootstrap的基本使用/" title="bootstrap的基本使用" itemprop="url">bootstrap的基本使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-24T13:50:22.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h5><p>Bootrap是一款前端的UI框架,里面提供了很多UI组件,是响应式的代表框架</p>
+<h5 id="2-实际应用"><a href="#2-实际应用" class="headerlink" title="2.实际应用"></a>2.实际应用</h5><h6 id="A-栅格系统"><a href="#A-栅格系统" class="headerlink" title="A.栅格系统"></a>A.栅格系统</h6><p>概念:<br>随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列,栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局</p>
+<p>原理:是利用媒体查询</p>
+<p>应用:响应式布局</p>
+<h5 id="B-表格"><a href="#B-表格" class="headerlink" title="B.表格"></a>B.表格</h5><p>.table===表格<br>.table-striped===条纹状表格<br>.table-bordered===带边框</p>
+<h5 id="C-表单"><a href="#C-表单" class="headerlink" title="C.表单"></a>C.表单</h5><p>具体参考bootstrap官网===&gt;样式===&gt;表单</p>
+<h5 id="D-按钮"><a href="#D-按钮" class="headerlink" title="D.按钮"></a>D.按钮</h5><p>.btn===按钮<br>.btn-default===初始色<br>.btn-primary===蓝色<br>.btn-success===绿色<br>.btn-info===天空蓝<br>.btn-warning===黄色<br>.btn-danger===红色<br>.btn-lg===大尺寸<br>.btn-default===默认<br>.btn-sm===小尺寸</p>
+<h5 id="E-响应式工具"><a href="#E-响应式工具" class="headerlink" title="E.响应式工具"></a>E.响应式工具</h5><p>参考bootstrap官网===&gt;样式===&gt;响应式工具</p>
+<h5 id="F-实例"><a href="#F-实例" class="headerlink" title="F.实例"></a>F.实例</h5><p>字体图标加属性aria-label和aria-hidden</p>
+<h5 id="G-下拉菜单"><a href="#G-下拉菜单" class="headerlink" title="G.下拉菜单"></a>G.下拉菜单</h5><p>.dropdown</p>
+<h5 id="H-导航和导航条"><a href="#H-导航和导航条" class="headerlink" title="H.导航和导航条"></a>H.导航和导航条</h5><p>.nav<br>.active===点击的标签<br>role=’presentation’ 每个标签外面的li</p>
+<h5 id="I-分页"><a href="#I-分页" class="headerlink" title="I.分页"></a>I.分页</h5><p>就相当于是一个按钮组合,最外面的nav设置aria-label=”Page navigation”,ul设置pagination,第一个和最后一个li分别设置aria-label属性为”Previous”和next</p>
+<h5 id="J-巨幕"><a href="#J-巨幕" class="headerlink" title="J.巨幕"></a>J.巨幕</h5><p>设置类jumbotron</p>
+<h5 id="K-缩略图和媒体对象"><a href="#K-缩略图和媒体对象" class="headerlink" title="K.缩略图和媒体对象"></a>K.缩略图和媒体对象</h5><p>缩略图:主要用于图片排列,设置thumbnail类<br>媒体对象:图片和文字左右排列,.media,.media-left和.media-object</p>
+<h5 id="L-列表组和面板"><a href="#L-列表组和面板" class="headerlink" title="L.列表组和面板"></a>L.列表组和面板</h5><p>列表组:ul设置.list-group,li设置list-group-item<br>面板:外层盒子设置.panel和.panel-default,内层设置.panel-body</p>
+<h5 id="M-模态框"><a href="#M-模态框" class="headerlink" title="M.模态框"></a>M.模态框</h5><p>主要有modal,modal-content,modal-header,modal-footr类<br>关闭按钮设置了data-dismiss=”modal”属性,但是如果利用关闭该模态框并触发submit事件无效</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/23/移动端之三大布局/" title="移动端之三大布局" itemprop="url">移动端之三大布局</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-23T13:43:27.000Z" itemprop="datePublished"> 发表于 2016-07-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h3><h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h5><p>就是百分比布局;<br>大盒子宽度设置百分比,里面内容用rem作为单位;</p>
+<h5 id="2-rem原理"><a href="#2-rem原理" class="headerlink" title="2.rem原理"></a>2.rem原理</h5><p>rem是一个单位,是用媒体查询修改html的font-size来改变rem值;</p>
+<h5 id="3-rem的应用"><a href="#3-rem的应用" class="headerlink" title="3.rem的应用"></a>3.rem的应用</h5><p>A.设计稿尺寸(一般为640px/750px)转化为rem值,分为若干份每一份大小是rem的单位;<br>B.把设计图中其他的尺寸转化为rem值;<br>C.在不同设备动态设置font-size值:</p>
+<pre><code>document.querySelector(&apos;html&apos;).style.fontSize
+=window.screen.width/20+&apos;px&apos;;
+</code></pre><p>D.如果是在浏览器中测试,需设置,因为固定设备屏幕大小固定:</p>
+<pre><code>window.onresize=function(){
+    querySelector(&apos;html&apos;).style.fontSize
+    =window.screen.width/20+&apos;px&apos;}
+</code></pre><h3 id="弹性布局"><a href="#弹性布局" class="headerlink" title="弹性布局"></a>弹性布局</h3><h5 id="1-特性"><a href="#1-特性" class="headerlink" title="1.特性"></a>1.特性</h5><pre><code>是css3出来的新特性,所以对IE来说兼容性不好;
+</code></pre><h5 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h5><h6 id="A-父元素设置的属性"><a href="#A-父元素设置的属性" class="headerlink" title="A.父元素设置的属性:"></a>A.父元素设置的属性:</h6><p>调整主轴位置:flex-direction:row/column/row-reverse/column-reverse;<br>主轴对齐方式:justify-content:flex-start/flex-end/center/space-around/space-between;<br>侧轴对齐方式:align-item:flex-start/flex-end/center/stretch;<br>换行:flex-wrap:nowrap/wrap;</p>
+<h6 id="B-设置子元素属性"><a href="#B-设置子元素属性" class="headerlink" title="B.设置子元素属性"></a>B.设置子元素属性</h6><p>flex:1//设置规定宽度,均分剩下宽<br>order:设置子元素的排列顺序<br>align-self:设置子元素侧轴位置</p>
+<h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><h5 id="1-概念-1"><a href="#1-概念-1" class="headerlink" title="1.概念:"></a>1.概念:</h5><p>web内容可以随着设备尺寸大小而变化</p>
+<h5 id="2-原理"><a href="#2-原理" class="headerlink" title="2.原理:"></a>2.原理:</h5><h6 id="A-媒体查询"><a href="#A-媒体查询" class="headerlink" title="A.媒体查询:"></a>A.媒体查询:</h6><p>/<em> 小屏幕（平板，大于等于 768px） </em>/<br>@media (min-width: @screen-sm-min) { … }<br>/<em> 中等屏幕（桌面显示器，大于等于 992px） </em>/<br>@media (min-width: @screen-md-min) { … }<br>/<em> 大屏幕（大桌面显示器，大于等于 1200px） </em>/<br>@media (min-width: @screen-lg-min) { … }</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/22/面向对象封装tab组件/" title="面向对象封装tab组件" itemprop="url">面向对象封装tab组件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-22T15:27:02.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="封装思路"><a href="#封装思路" class="headerlink" title="封装思路"></a>封装思路</h3><pre><code>A.tab栏切换主要分为tab样式改变和下面对应的div内容改变;
+B.都得事件来触发,所以就用到了闭包;
+</code></pre><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code>function tabChange(opt){
+    //混入赋值
+    $.extend(this,opt);
+    //初始化
+    this.init();
+};
+tabChange.prototype={
+    constructor:tabChange,
+    init:function(){
+        //tab样式改变
+        this.tabClick();
+        //内容改变
+        this.textChange();
+    },
+tabClick:function(){
+    var _this=this;
+    this.btn.on(&apos;click&apos;,function(){
+      _this.textChange($(this).index()); 
+    })
+},
+textChange:function(index){
+    console.log(index);
+    var txt=this.btn.eq(index).html();
+    console.log(txt);
+    // this.box.empty().append(txt);
+    this.box.empty().html(txt);
+}
+};
+var tabChange=new tabChange({
+    btn:$(&apos;.top button&apos;),
+    box:$(&apos;.bottom&apos;)
+});
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/02/简易的template模板/" title="art-template模板,$.ajax封装与基本API" itemprop="url">art-template模板,$.ajax封装与基本API</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-02T15:14:08.000Z" itemprop="datePublished"> 发表于 2016-06-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="封装思路"><a href="#封装思路" class="headerlink" title="封装思路"></a>封装思路</h3><pre><code>1.获取标签间的内容;
+2.定义正则表达式
+3.循环替换
+</code></pre><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code>function template(id, data) {
+  // 获取模板字符串
+  var templateString = 
+document.getElementById(id).innerHTML;
+
+  // 定义正则表达式 
+  var reg = /{{(\w+)}}/;
+
+  // 循环替换 直到替换不了为止
+  var result;
+
+  while(result = reg.exec(templateString)){
+templateString = templateString.replace
+(result[0],data[result[1]]);
+  }
+  // 把替换完毕的内容返还给用户 s
+  return templateString;
+}
+</code></pre><h3 id="模拟jquery封装-ajax函数"><a href="#模拟jquery封装-ajax函数" class="headerlink" title="模拟jquery封装$_ajax函数"></a>模拟jquery封装$_ajax函数</h3><pre><code> var $_ajax = {
+get: function (url, data, success) {
+  //1.创建异步对象
+  var xhr = new XMLHttpRequest();
+  // 如果用户传了data进来 并且 data是有值的
+  if (data) {
+    url += &apos;?&apos;;
+    url += data;
+  }
+  //2.设置请求行
+  xhr.open(&apos;get&apos;, url);
+
+  //3.设置请求头(get请求可以省略)
+  //4.注册状态改变事件
+  xhr.onreadystatechange = function () {
+    //4.1判断状态&amp;请求是否成功并使用数据
+    if (xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+      // 获取 响应 头 大小写 没有要求
+      var type = xhr.getResponseHeader
+        (&apos;content-type&apos;);
+      // 使用正则来判断 是否有 json
+      var jsonReg = /json/;
+      if (jsonReg.test(type) == true) {
+        // 如果进来了 说明是 json数据
+        success(JSON.parse(xhr.responseText));
+        return;
+      }
+      // 使用正则来判断 是否有 xml
+      var xmlReg = /xml/;
+      if (xmlReg.test(type) == true) {
+        success(xhr.responseXML);
+        return;
+      }
+      success(xhr.responseText);
+    }
+  }
+  //5.发送请求
+  xhr.send(null);
+},
+post: function (url, data, success) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(&apos;post&apos;, url);
+  if (data) {
+    xhr.setRequestHeader(&quot;Content-type&quot;,
+     &quot;application/x-www-form-urlencoded&quot;);
+  }
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+      // 使用 indexof 进行判断
+      // 获取 content-type的值
+      var type = xhr.getResponseHeader
+        (&apos;content-type&apos;);
+      // indexof判断
+      if (type.indexOf(&apos;xml&apos;) != -1) {
+        success(xhr.responseXML);
+        return;
+      }
+      if (type.indexOf(&apos;json&apos;) != -1) {
+        success(JSON.parse(xhr.responseText));
+        return;
+      }
+      success(xhr.responseText);
+    }
+  }
+  //5.发送请求
+  xhr.send(data);
+},
+/*
+  type：请求方法
+  data: 发送的数据
+  url: 请求的url
+  success:回掉函数
+*/
+ajax: function (option) {
+  //1.创建异步对象
+  var xhr = new XMLHttpRequest();
+  //2.设置请求行
+  if (option.type == &apos;get&apos; &amp;&amp; option.data) {
+    option.url += &apos;?&apos;;
+    option.url += option.data;
+    // 如果是get请求 那么 把data 设置为null 
+    发送的时候 就相当于 发送null
+    option.data = null;
+  }
+  xhr.open(option.type, option.url);
+  //3.设置请求头(get请求可以省略)
+  if (option.type == &apos;post&apos; &amp;&amp; option.data) {
+    xhr.setRequestHeader(&quot;Content-type&quot;, 
+    &quot;application/x-www-form-urlencoded&quot;);
+  }
+  //4.注册状态改变事件
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+      var type = xhr.getResponseHeader
+        (&apos;content-type&apos;);
+      if (type.indexOf(&apos;json&apos;) != -1) {
+       option.success(JSON.parse(xhr.responseText));
+       return;
+      }
+      if (type.indexOf(&apos;xml&apos;) != -1) {
+        option.success(xhr.responseXML);
+        return;
+      }
+      option.success(xhr.responseText);
+    }
+  }
+
+  //5.发送请求
+  xhr.send(option.data);
+}
+}
+</code></pre><h3 id="art-template常用的API"><a href="#art-template常用的API" class="headerlink" title="art-template常用的API"></a>art-template常用的API</h3><p>A.核心方法</p>
+<pre><code>// 基于模板名渲染模板
+template(filename, data);
+// 将模板源代码编译成函数,用的少
+template.compile(source, options);
+// 将模板源代码编译成函数并立刻执行
+template.render(source, data, options);
+</code></pre><p>B.条件</p>
+<pre><code>1.标准语法
+{{if value}} ... {{/if}}
+{{if v1}} ... {{else if v2}} ... {{/if}}
+2.原始语法
+&lt;% if (value) { %&gt; ... &lt;% } %&gt;
+&lt;% if (v1) { %&gt; ... &lt;% } else if (v2)
+ { %&gt; ... &lt;% } %&gt;
+</code></pre><p>C.循环</p>
+<pre><code>1.标准
+{{each target}}
+{{$index}} {{$value}}//可以自定义值
+{{/each}}
+2.原始
+&lt;% for(var i = 0; i &lt; target.length; i++){ %&gt;
+&lt;%= i %&gt; &lt;%= target[i] %&gt;
+&lt;% } %&gt;
+</code></pre><p>D.变量</p>
+<pre><code>1.标准
+{{set temp = data.sub.content}}
+2.原始
+&lt;% var temp = data.sub.content; %&gt;
+</code></pre><p>E.子模板</p>
+<pre><code>1.标准
+{{include './header.art'}}
+{{include './header.art' data}}
+2.原始
+&lt;% include(&apos;./header.art&apos;) %&gt;
+&lt;% include(&apos;./header.art&apos;, data) %&gt;
+3.data默认是$data,标准语法不支持object和array
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/23/waterfall-瀑布流-插件封装/" title="waterfall(瀑布流)插件封装" itemprop="url">waterfall(瀑布流)插件封装</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-23T14:01:36.000Z" itemprop="datePublished"> 发表于 2016-05-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="封装思路"><a href="#封装思路" class="headerlink" title="封装思路"></a>封装思路</h3><p>1.使用一个数组保存上一行的高度;<br>2.循环元素时,找到数组中最小的值和下标,将下一个元素放在该位置;<br>3.位置更新后更新数组值;<br>4.最后将数组最大值设置设置容器的高度</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>/<em>调用规则:<br>需要通过 瀑布流的 容器来调用 $(‘.container’).waterfall();<br>瀑布流容器中 布局的子元素 必须使用 .item 作为类名  
+</em>/</p>
+<pre><code>$.fn.extend({
+waterfall: function () {
+var $this = this;
+var itemWidth = $this.children(&apos;.item&apos;).width();
+var containerWidth = $this.width();
+// 每一行的列数
+var colNum=Math.floor(containerWidth/itemWidth);
+// 间隙
+var margin=(containerWidth-colNum*itemWidth) / 
+(colNum + 1);
+var heightArr = [];
+// 为高度数组 设置一个 初始值
+for (var i = 0; i &lt; colNum; i++) {
+  // 默认都设置一个 间隙
+  heightArr[i] = 0;
+}
+// 循环 一个个 .item div for
+$this.children(&apos;.item&apos;).each(function 
+  (index, element) {
+  var minIndex = 0;
+  var minHeight = heightArr[minIndex];
+  // 循环验证
+  for (var i = 0; i &lt; heightArr.length; i++) {
+    if (minHeight &gt; heightArr[i]) {
+      minHeight = heightArr[i];
+      minIndex = i;
+    }
+  }
+  // 转化为jQuery 对象
+  $(element).css({
+    left: margin+(margin+itemWidth)*minIndex,
+    top: minHeight
+  })
+  // 用完了之后需要去更新 高度数组的值
+  heightArr[minIndex]+=$(element).height();
+  heightArr[minIndex] += margin;
+})
+// 在循环完毕之后 
+//获取 高度数组的 最大值 设置给 容器 即可
+var maxIndex = 0;
+var maxHeight = heightArr[maxIndex];
+for (var i = 0; i &lt; heightArr.length; i++) {
+  if (heightArr[i] &gt; maxHeight) {
+    maxHeight = heightArr[i];
+    maxIndex = i;
+  }
+}
+$this.height(maxHeight);
+// 链式编程
+return $this;
+  }
+})
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/10/原型链/" title="原型链,作用域链和执行环境的原理分析" itemprop="url">原型链,作用域链和执行环境的原理分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T15:28:50.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="原型链概念"><a href="#原型链概念" class="headerlink" title="原型链概念"></a>原型链概念</h3><pre><code>对象所有的继承对象,每个对象有__prototype__属性串联起来
+</code></pre><h3 id="原型链图"><a href="#原型链图" class="headerlink" title="原型链图"></a>原型链图</h3><p><img src="/img/yuanxinglian.png" alt=""></p>
+<h3 id="作用域链概念"><a href="#作用域链概念" class="headerlink" title="作用域链概念"></a>作用域链概念</h3><pre><code>函数运行时可以访问的所有作用域;
+在ES6之前只有函数才能分割作用域;
+函数每次调用都会产生单独的作用域;
+</code></pre><h3 id="作用域分类"><a href="#作用域分类" class="headerlink" title="作用域分类"></a>作用域分类</h3><pre><code>A.词法作用域:描述什么东西可以划分作用域,程序写好就确定了
+B.函数作用域:描述变量的查找规则
+</code></pre><h3 id="作用域链图"><a href="#作用域链图" class="headerlink" title="作用域链图"></a>作用域链图</h3><p><img src="/img/作用域链图.png" alt=""></p>
+<h3 id="执行环境顺序"><a href="#执行环境顺序" class="headerlink" title="执行环境顺序"></a>执行环境顺序</h3><pre><code>1.全局执行(运行)环境:代码执行前会先创建对应的执行环境
+  步骤:1.先创建一个this,,this指向window;;;2.创建初始化变量对象,,其实就是预解析
+</code></pre><h5 id="2-局部执行环境"><a href="#2-局部执行环境" class="headerlink" title="2.局部执行环境:"></a>2.局部执行环境:</h5><p>步骤:<br>1.先创建一个this,,this指向window;;;<br>2.初始化变量对象,,起始就是预解析,逐行执行还会赋值也是贮存在这里面,还有一个arguments对象<br>3.添加作用域链属性(数组):添加一个作用域链的属性,属性值可以认为是一个数组,里面贮存该环境所有    可访问的所有变量对象,先存的是自己的变量,再存全局<br>3.Js代码块默认会进入全局环境,遇到函数变成局部<br>4.执行环境完成后,逐行执行代码</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+            
+         
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/29/递归/" title="递归的三种常见应用" itemprop="url">递归的三种常见应用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LanZhiSheng" target="_blank" itemprop="author">LanZhiSheng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-29T14:11:03.000Z" itemprop="datePublished"> 发表于 2016-04-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><pre><code>函数直接或者间接调用自己
+</code></pre><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><pre><code>存在一个零界条件,循环和递归一般可以互换
+</code></pre><h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>A.求阶乘</p>
+<pre><code>function factorial(n) {
+    if(n === 1) {
+        return 1;
+            }else {
+        return factorial(n - 1) * n;
+    }
+}
+</code></pre><p>B.求斐波拉契数列</p>
+<pre><code>function fib(n) {
+    if (n === 0 || n === 1) {
+        return 1;
+            } else {
+    return fib(n - 2) + fib(n - 1);
+    }
+}
+</code></pre><p>C.优化版斐波拉契数列</p>
+<pre><code>var total = 0;
+  var fibCache = [];
+    function fib(n) {
+      total++;
+      return fibCache[n] || (fibCache[n] = 
+(n === 0 || n === 1)? 1: fib(n - 2) + fib(n - 1));
+    }
+console.log(fib(100), total);
+</code></pre><p>D.统计页面中所有的元素</p>
+<pre><code>1.思路:
+从html根节点开始获取子元素，
+把子元素添加到数组中，
+然后继续以递归的方式获取子元素的子元素
+
+2.代码:
+//递归获取页面上所有的元素
+var nodes = [ document.documentElement ];
+        (function getNodes(node) {
+            var child = node.children;
+        for(var i = 0, len = child.length; i &lt; len; 
+    i++) {
+                nodes.push(child[i]);
+                getNodes(child[i]);
+            }
+})(document.documentElement);
+
+//统计元素的种类
+var obj = { total: 0 };
+    nodes.forEach(function(node, i) {
+        if(!obj[node.nodeName]) {
+            obj[node.nodeName] = true;
+                obj.total++;
+    }
+});
 </code></pre>
         
         
@@ -356,7 +1125,7 @@ E.post还有一种格式Form Data,服务器可以正常拿到
             
                 
                     <nav id="page-nav" class="clearfix">
-                        <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+                        <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
                     </nav>
                     
 </div>
